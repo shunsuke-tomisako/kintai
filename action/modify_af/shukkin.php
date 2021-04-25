@@ -60,7 +60,7 @@
 
     $time = $_GET["time"];
     if (strtotime($time) > strtotime($finish_time)) {
-      echo "退勤時間より前の時間を入力してください";
+      echo "退勤時間より前の時間を入力してください。";
     } else {
       $sql = 'UPDATE trackfarm_kintai SET begin_time = "'.$time.'" WHERE (user_id, date) = ("'.$user_id.'", "'.$today.'")';
       $stmt = $dbh->prepare($sql);
