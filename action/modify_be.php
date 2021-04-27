@@ -34,7 +34,7 @@
   $password = '';
   $dbh = new PDO($dsn,$user,$password);
   $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-  
+
   $sql = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date="'.$today.'"';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
@@ -47,22 +47,21 @@
 
   <?php if (isset($trackfarm_kintai_rec['begin_time']) == true) { ?>
     <a href="modify_af/shukkin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-danger btn-lg active w-35" role="button" aria-pressed="true">　出勤時間 　修正</a> 
-    <!-- <a href="modify_af/shukkin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>" class="btn btn-danger btn-lg active w-35" role="button" aria-pressed="true">　出勤時間 　修正</a>  -->
     <?php echo $trackfarm_kintai_rec['begin_time'] ."<br>";?>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec['rest_time']) == true) { ?>
-    <a href="modify_af/rest.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>" class="btn btn-success btn-lg active w-35" role="button" aria-pressed="true">休憩開始時間 修正</a>
+    <a href="modify_af/rest.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-success btn-lg active w-35" role="button" aria-pressed="true">休憩開始時間 修正</a>
     <?php echo $trackfarm_kintai_rec['rest_time'] ."<br>"; ?>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec['return_time']) == true) { ?>
-    <a href="modify_af/return.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-info btn-lg active w-35" role="button" aria-pressed="true">休憩終了時間 修正</a>
+    <a href="modify_af/return.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-info btn-lg active w-35" role="button" aria-pressed="true">休憩終了時間 修正</a>
     <?php echo $trackfarm_kintai_rec['return_time'] ."<br>"; ?>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec['finish_time']) == true) { ?>
-    <a href="modify_af/taikin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>" class="btn btn-secondary btn-lg active w-35" role="button" aria-pressed="true">　退勤時間 　修正</a>
+    <a href="modify_af/taikin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-secondary btn-lg active w-35" role="button" aria-pressed="true">　退勤時間 　修正</a>
     <?php echo $trackfarm_kintai_rec['finish_time'] ."<br>"; ?>
   <?php } ?>
 

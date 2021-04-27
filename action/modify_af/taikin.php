@@ -13,6 +13,7 @@
   </header>
 
   <a href="../modify_be.php?user_id=<?php echo $_GET["user_id"] ?>&date=<?php echo $_GET["date"] ?>" class="btn btn-dark btn-lg active" role="button" aria-pressed="true" >修正の選択に戻る</a><br>
+  <h3>退勤時間の修正を行います。<h3><br>
 
   <?php
 
@@ -44,7 +45,7 @@
   $password = '';
   $dbh = new PDO($dsn,$user,$password);
   $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-  
+
   $sql = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date="'.$today.'"';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
@@ -58,22 +59,32 @@
   if ($value == 1) {
 
     $time = $_GET["time"];
-    $sql = 'UPDATE trackfarm_kintai SET finish_time = "'.$time.'" WHERE (user_id, date) = ("'.$user_id.'", "'.$today.'")';
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
+    if (strtotime($time) < strtotime($begin_time)) {
+      echo "出勤時間より後の時間を入力してください。";
+    } else if (strtotime($time) < strtotime($rest_time)) {
+      echo "休憩開始時間より後の時間を入力してください。";
+    } else if (strtotime($time) < strtotime($return_time)) {
+      echo "休憩終了時間より後の時間を入力してください。";
+    } else {
+      $sql = 'UPDATE trackfarm_kintai SET finish_time = "'.$time.'" WHERE (user_id, date) = ("'.$user_id.'", "'.$today.'")';
+      $stmt = $dbh->prepare($sql);
+      $stmt->execute();
+      header("Location: modify_af.php");
+    }
 
-    header("Location: modify_af.php");
   }
 
   ?>
 
-  <h3>退勤時間の修正を行います。<h3><br>
   <form action="./taikin.php" method="get">
     <h3><input type="datetime-local" name="time" step="1" value="<?php echo str_replace(' ', 'T', $_GET["finish_time"]); ?>"><h3><br>
     <input type="hidden" name="value" value="1">
     <input type="hidden" name="user_id" value="<?php echo $_GET["user_id"]; ?>">
     <input type="hidden" name="date" value="<?php echo $_GET["date"]; ?>">
+    <input type="hidden" name="begin_time" value="<?php echo $_GET["begin_time"]; ?>">
     <input type="hidden" name="finish_time" value="<?php echo $_GET["finish_time"]; ?>">
+    <input type="hidden" name="rest_time" value="<?php echo $_GET["rest_time"]; ?>">
+    <input type="hidden" name="return_time" value="<?php echo $_GET["return_time"]; ?>">
     <input type="submit" class="btn btn-light btn-lg active w-35" value="変更する">
   </form>
 </body>

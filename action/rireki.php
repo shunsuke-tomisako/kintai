@@ -142,7 +142,7 @@
 
           // 勤務時間合計計算
           $workingTimeSum += $workingTime;
-          if ($workingTime > 0) {
+          if ($workingTimeSum > 0) {
             $workingTimeSumh = floor($workingTimeSum / 3600);
             $workingTimeSumH = $workingTimeSumh .":";
             $workingTimeSumm = floor(($workingTimeSum - $workingTimeSumh * 3600) / 60);
@@ -155,8 +155,12 @@
           }
 
           // 残業時間計算
-          if ($workingTime > 3600 * 8) {
+          if ($workingTime - 3600 * 8 > 0) {
             $overTime = $workingTime - 3600 * 8;
+          } else {
+            $overTime = 0;
+          }
+          if ($overTime > 0) {
             $overTimeh = floor($overTime / 3600);
             $overTimeH = $overTimeh .":";
             $overTimem = floor(($overTime - $overTimeh * 3600) / 60);
@@ -169,8 +173,8 @@
           }
 
           // 残業時間合計計算
-          if ($workingTime > 3600 * 8) {
-            $overTimeSum += $overTime;
+          $overTimeSum += $overTime;
+          if ($overTimeSum > 0) {
             $overTimeSumh = floor($overTimeSum / 3600);
             $overTimeSumH = $overTimeSumh .":";
             $overTimeSumm = floor(($overTimeSum - $overTimeSumh * 3600) / 60);
@@ -184,8 +188,12 @@
 
           // 夜勤時間計算
           //22時以降に休憩に入った場合も?
-          if ((int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) >= 22) {
+          if (strtotime($trackfarm_kintai_rec['finish_time']) - strtotime($trackfarm_kintai_rec['date']) - 3600 * 22 > 0) {
             $nightTime = strtotime($trackfarm_kintai_rec['finish_time']) - strtotime($trackfarm_kintai_rec['date']) - 3600 * 22;
+          } else {
+            $nightTime = 0;
+          }
+          if ((int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) >= 22) {
             $nightTimeh = floor($nightTime / 3600);
             $nightTimeH = $nightTimeh .":";
             $nightTimem = floor(($nightTime - $nightTimeh * 3600) / 60);
@@ -199,8 +207,8 @@
 
           // 夜勤時間合計計算
           //22時以降に休憩に入った場合も?
-          if ((int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) >= 22) {
-            $nightTimeSum += $nightTime;
+          $nightTimeSum += $nightTime;
+          if ($nightTimeSum > 0) {
             $nightTimeSumh = floor($nightTimeSum / 3600);
             $nightTimeSumH = $nightTimeSumh .":";
             $nightTimeSumm = floor(($nightTimeSum - $nightTimeSumh * 3600) / 60);
