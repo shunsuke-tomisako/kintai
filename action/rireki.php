@@ -44,8 +44,7 @@
     $month = $_GET["month"] ."%";
 
   } else {
-    // $month = $trackfarm_kintai_rec_list3 ."%";
-    $month = date('Y-m') ."%";
+    $month = mb_substr($trackfarm_kintai_rec_list3[0]["MAX(date)"], 0, 7) ."%";
   }
   $sql = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date LIKE "'.$month.'"';
   $stmt = $dbh->prepare($sql);
@@ -58,7 +57,6 @@
   $trackfarm_kintai_rec_list2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
   echo $user_id .'<p>さん</p>';
-
   ?>
 
   <form action="./rireki.php" method="get">
@@ -193,7 +191,7 @@
           } else {
             $nightTime = 0;
           }
-          if ((int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) >= 22) {
+          if (isset($trackfarm_kintai_rec['finish_time']) == true && ((int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) >= 22 || (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5)) {
             $nightTimeh = floor($nightTime / 3600);
             $nightTimeH = $nightTimeh .":";
             $nightTimem = floor(($nightTime - $nightTimeh * 3600) / 60);
@@ -223,9 +221,13 @@
 
       ?>
       <tr>
-        <th scope="row"><?php echo $trackfarm_kintai_rec['date']; ?></th>
+        <th scope="row"><?php echo mb_substr($trackfarm_kintai_rec['date'], 5, 5); ?></th>
         <td><?php echo mb_substr($trackfarm_kintai_rec['begin_time'], 10); ?></td>
-        <td><?php echo mb_substr($trackfarm_kintai_rec['finish_time'], 10); ?></td>
+        <?php if (isset($trackfarm_kintai_rec['finish_time']) == true && (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5) { ?>
+          <td><?php echo (int)mb_substr($trackfarm_kintai_rec['finish_time'], 10, 3) + 24 .mb_substr($trackfarm_kintai_rec['finish_time'], 13); ?></td>
+        <?php } else { ?>
+          <td><?php echo mb_substr($trackfarm_kintai_rec['finish_time'], 10); ?></td>
+        <?php } ?>
         <td><?php echo mb_substr($trackfarm_kintai_rec['rest_time'], 10); ?></td>
         <td><?php echo mb_substr($trackfarm_kintai_rec['return_time'], 10); ?></td>
         <td><?php echo $restTimeH .$restTimeM .$restTimeS; ?></td>
@@ -236,8 +238,8 @@
       <?php } ?> 
       <tr>
         <th scope="row">合計</th>
-        <td></td>
-        <td></td>
+        <td>出勤日数</td>
+        <td><?php echo count($trackfarm_kintai_rec_list); ?></td>
         <td></td>
         <td></td>
         <td><?php echo $restTimeSumH .$restTimeSumM .$restTimeSumS; ?></td>

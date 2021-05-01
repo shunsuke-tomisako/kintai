@@ -35,8 +35,12 @@
   }
 
   $today = date("Y/m/d");
+  $yesterday = date("Y/m/d",strtotime("-1 day"));
   // $now_datetime = date('Y/m/d H:i');
   $now_datetime = date('Y/m/d H:i:s');
+  $now_datetime_str = strtotime($now_datetime);
+  // $yesterday_time = date('Y/m/d H:i:s', strtotime('-24 hour', $now_datetime_str));
+  $now_hour = date("H");
 
   $WHERE_user_id = 'WHERE user_id='.$user_id;
   $dsn = 'mysql:dbname=test;host=localhost;charset=utf8';
@@ -49,6 +53,12 @@
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
   $trackfarm_kintai_rec = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  // 前日のデータ
+  $sql2 = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date="'.$yesterday.'"';
+  $stmt2 = $dbh->prepare($sql2);
+  $stmt2->execute();
+  $trackfarm_kintai_rec2 = $stmt2->fetch(PDO::FETCH_ASSOC);
 
   $status = "";
   if (isset($_GET["status"])) {
@@ -67,10 +77,17 @@
   }
 
   if ($status == 2) {
+    // 日付越えた場合の条件分岐
+    if ($now_hour > 5) {
 
-    $sql = 'UPDATE trackfarm_kintai SET finish_time = "'.$now_datetime.'" WHERE (user_id, date) = ("'.$user_id.'", "'.$today.'")';
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
+      $sql = 'UPDATE trackfarm_kintai SET finish_time = "'.$now_datetime.'" WHERE (user_id, date) = ("'.$user_id.'", "'.$today.'")';
+      $stmt = $dbh->prepare($sql);
+      $stmt->execute();
+    } else {
+      $sql = 'UPDATE trackfarm_kintai SET finish_time = "'.$now_datetime.'" WHERE (user_id, date) = ("'.$user_id.'", "'.$yesterday.'")';
+      $stmt = $dbh->prepare($sql);
+      $stmt->execute();
+    }
 
     header("Location: action/taikin.php");
   }
@@ -95,11 +112,11 @@
 
 
   ?>
-  <?php if (isset($trackfarm_kintai_rec['id']) == false) { ?>
+  <?php if (isset($trackfarm_kintai_rec['id']) == false && $now_hour > 5) { ?>
   <a href="index.php?status=1&user_id=<?php echo $user_id; ?>" class="btn btn-danger btn-lg active w-50" role="button" aria-pressed="true">出勤</a>
   <?php } ?>
 
-  <?php if (isset($trackfarm_kintai_rec['begin_time']) == true && isset($trackfarm_kintai_rec['finish_time']) == false && (((isset($trackfarm_kintai_rec['rest_time']) == false && isset($trackfarm_kintai_rec['return_time']) == false)) || (isset($trackfarm_kintai_rec['rest_time']) == true && isset($trackfarm_kintai_rec['return_time']) == true))) { ?>
+  <?php if ((isset($trackfarm_kintai_rec['begin_time']) == true && isset($trackfarm_kintai_rec['finish_time']) == false && (((isset($trackfarm_kintai_rec['rest_time']) == false && isset($trackfarm_kintai_rec['return_time']) == false)) || (isset($trackfarm_kintai_rec['rest_time']) == true && isset($trackfarm_kintai_rec['return_time']) == true))) || ($now_hour <= 5 && isset($trackfarm_kintai_rec2['begin_time']) == true && isset($trackfarm_kintai_rec2['finish_time']) == false)) { ?>
   <a href="index.php?status=2&user_id=<?php echo $user_id; ?>" class="btn btn-secondary btn-lg active w-50" role="button" aria-pressed="true">退勤</a>
   <?php } ?>
 
@@ -111,11 +128,15 @@
   <a href="index.php?status=4&user_id=<?php echo $user_id; ?>" class="btn btn-info btn-lg active w-50" role="button" aria-pressed="true" >戻り</a>
   <?php } ?>
 
-  <?php if (isset($trackfarm_kintai_rec['id']) == true) { ?>
+  <?php if (isset($trackfarm_kintai_rec['id']) == true && $now_hour > 5) { ?>
   <a href="action/modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>" class="btn btn-light btn-lg active w-50" role="button" aria-pressed="true">履歴・修正</a>
   <?php } ?>
 
-  <?php if (isset($trackfarm_kintai_rec['id']) == false) { ?>
+  <?php if (isset($trackfarm_kintai_rec2['id']) == true && $now_hour <= 5) { ?>
+  <a href="action/modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $yesterday; ?>" class="btn btn-light btn-lg active w-50" role="button" aria-pressed="true">履歴・修正</a>
+  <?php } ?>
+
+  <?php if ((isset($trackfarm_kintai_rec['id']) == false && $now_hour > 5) || (isset($trackfarm_kintai_rec2['id']) == false && $now_hour <= 5)) { ?>
   <a href="action/rireki.php?user_id=<?php echo $user_id; ?>" class="btn btn-light btn-lg active w-50" role="button" aria-pressed="true">履歴</a>
   <?php } ?>
 
