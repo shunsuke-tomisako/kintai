@@ -76,7 +76,7 @@
 
   ?>
 
-  <form action="./taikin.php" method="get">
+  <form action="./taikin.php" method="get" onSubmit="return checkSubmit()">
     <h3><input type="datetime-local" name="time" step="1" value="<?php echo str_replace(' ', 'T', $_GET["finish_time"]); ?>"><h3><br>
     <input type="hidden" name="value" value="1">
     <input type="hidden" name="user_id" value="<?php echo $_GET["user_id"]; ?>">
@@ -87,5 +87,17 @@
     <input type="hidden" name="return_time" value="<?php echo $_GET["return_time"]; ?>">
     <input type="submit" class="btn btn-light btn-lg active w-35" value="変更する">
   </form>
+
+  <script>
+  function checkSubmit() {
+    if(window.confirm('変更しますか？')){
+      return true;
+    } else {
+      return false;
+      
+    }
+  }
+  </script>
+
 </body>
 </html>

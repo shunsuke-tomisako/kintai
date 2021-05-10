@@ -113,33 +113,65 @@
 
   ?>
   <?php if (isset($trackfarm_kintai_rec['id']) == false && $now_hour > 5) { ?>
-  <a href="index.php?status=1&user_id=<?php echo $user_id; ?>" class="btn btn-danger btn-lg active w-50" role="button" aria-pressed="true">出勤</a>
+  <a href="index.php?status=1&user_id=<?php echo $user_id; ?>" class="btn btn-danger btn-lg active w-50" role="button" aria-pressed="true" onClick="return checkShukkin()">出勤</a>
   <?php } ?>
 
   <?php if ((isset($trackfarm_kintai_rec['begin_time']) == true && isset($trackfarm_kintai_rec['finish_time']) == false && (((isset($trackfarm_kintai_rec['rest_time']) == false && isset($trackfarm_kintai_rec['return_time']) == false)) || (isset($trackfarm_kintai_rec['rest_time']) == true && isset($trackfarm_kintai_rec['return_time']) == true))) || ($now_hour <= 5 && isset($trackfarm_kintai_rec2['begin_time']) == true && isset($trackfarm_kintai_rec2['finish_time']) == false)) { ?>
-  <a href="index.php?status=2&user_id=<?php echo $user_id; ?>" class="btn btn-secondary btn-lg active w-50" role="button" aria-pressed="true">退勤</a>
+  <a href="index.php?status=2&user_id=<?php echo $user_id; ?>" class="btn btn-secondary btn-lg active w-50" role="button" aria-pressed="true" onClick="return checkTaikin()">退勤</a>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec['begin_time']) == true && isset($trackfarm_kintai_rec['finish_time']) == false && isset($trackfarm_kintai_rec['rest_time']) == false) { ?>
-  <a href="index.php?status=3&user_id=<?php echo $user_id; ?>" class="btn btn-success btn-lg active w-50" role="button" aria-pressed="true" >休憩</a>
+  <a href="index.php?status=3&user_id=<?php echo $user_id; ?>" class="btn btn-success btn-lg active w-50" role="button" aria-pressed="true" onClick="return checkRest()">休憩</a>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec['rest_time']) == true && isset($trackfarm_kintai_rec['return_time']) == false) { ?>
-  <a href="index.php?status=4&user_id=<?php echo $user_id; ?>" class="btn btn-info btn-lg active w-50" role="button" aria-pressed="true" >戻り</a>
+  <a href="index.php?status=4&user_id=<?php echo $user_id; ?>" class="btn btn-info btn-lg active w-50" role="button" aria-pressed="true" onClick="return checkReturn()">戻り</a>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec['id']) == true && $now_hour > 5) { ?>
-  <a href="action/modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>" class="btn btn-light btn-lg active w-50" role="button" aria-pressed="true">履歴・修正</a>
+  <a href="action/modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>" class="btn btn-light btn-lg active w-50" role="button" aria-pressed="true">修正</a>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec2['id']) == true && $now_hour <= 5) { ?>
-  <a href="action/modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $yesterday; ?>" class="btn btn-light btn-lg active w-50" role="button" aria-pressed="true">履歴・修正</a>
+  <a href="action/modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $yesterday; ?>" class="btn btn-light btn-lg active w-50" role="button" aria-pressed="true">修正</a>
   <?php } ?>
 
-  <?php if ((isset($trackfarm_kintai_rec['id']) == false && $now_hour > 5) || (isset($trackfarm_kintai_rec2['id']) == false && $now_hour <= 5)) { ?>
-  <a href="action/rireki.php?user_id=<?php echo $user_id; ?>" class="btn btn-light btn-lg active w-50" role="button" aria-pressed="true">履歴</a>
-  <?php } ?>
+  <a href="action/rireki.php?user_id=<?php echo $user_id; ?>" class="btn btn-primary btn-lg active w-50" role="button" aria-pressed="true">履歴</a>
 
+  <script>
+  function checkShukkin() {
+    if(window.confirm('出勤しますか？')){
+      return true;
+    } else {
+      return false;
+
+    }
+  }
+  function checkTaikin() {
+    if(window.confirm('退勤しますか？')){
+      return true;
+    } else {
+      return false;
+
+    }
+  }
+  function checkRest() {
+    if(window.confirm('休憩を開始しますか？')){
+      return true;
+    } else {
+      return false;
+
+    }
+  }
+  function checkReturn() {
+    if(window.confirm('休憩から戻りますか？')){
+      return true;
+    } else {
+      return false;
+
+    }
+  }
+  </script>
 
 </body>
 </html>
