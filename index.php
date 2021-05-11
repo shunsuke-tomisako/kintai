@@ -39,16 +39,16 @@
   // $now_datetime = date('Y/m/d H:i');
   $now_datetime = date('Y/m/d H:i:s');
   $now_datetime_str = strtotime($now_datetime);
-  // $yesterday_time = date('Y/m/d H:i:s', strtotime('-24 hour', $now_datetime_str));
   $now_hour = date("H");
+  // 1時間後
+  $one_hour = date('Y/m/d H:i:s',strtotime("+1 hour"));
 
-  $WHERE_user_id = 'WHERE user_id='.$user_id;
   $dsn = 'mysql:dbname=test;host=localhost;charset=utf8';
   $user = 'root';
   $password = '';
   $dbh = new PDO($dsn,$user,$password);
   $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-  
+
   $sql = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date="'.$today.'"';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
@@ -110,6 +110,18 @@
     header("Location: action/return.php");
   }
 
+  if ($status == 5) {
+
+    $sql = 'UPDATE trackfarm_kintai SET rest_time = "'.$now_datetime.'" WHERE (user_id, date) = ("'.$user_id.'", "'.$today.'")';
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $sql = 'UPDATE trackfarm_kintai SET return_time = "'.$one_hour.'" WHERE (user_id, date) = ("'.$user_id.'", "'.$today.'")';
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+
+    header("Location: action/rest.php");
+  }
+
 
   ?>
   <?php if (isset($trackfarm_kintai_rec['id']) == false && $now_hour > 5) { ?>
@@ -122,6 +134,10 @@
 
   <?php if (isset($trackfarm_kintai_rec['begin_time']) == true && isset($trackfarm_kintai_rec['finish_time']) == false && isset($trackfarm_kintai_rec['rest_time']) == false) { ?>
   <a href="index.php?status=3&user_id=<?php echo $user_id; ?>" class="btn btn-success btn-lg active w-50" role="button" aria-pressed="true" onClick="return checkRest()">休憩</a>
+  <?php } ?>
+
+  <?php if (isset($trackfarm_kintai_rec['begin_time']) == true && isset($trackfarm_kintai_rec['finish_time']) == false && isset($trackfarm_kintai_rec['rest_time']) == false) { ?>
+  <a href="index.php?status=5&user_id=<?php echo $user_id; ?>" class="btn btn-success btn-lg active w-50" role="button" aria-pressed="true" onClick="return checkRest()">休憩（1時間）</a>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec['rest_time']) == true && isset($trackfarm_kintai_rec['return_time']) == false) { ?>
