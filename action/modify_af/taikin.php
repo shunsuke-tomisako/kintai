@@ -13,7 +13,11 @@
   </header>
 
   <a href="../modify_be.php?user_id=<?php echo $_GET["user_id"] ?>&date=<?php echo $_GET["date"] ?>" class="btn btn-dark btn-lg active" role="button" aria-pressed="true" >修正の選択に戻る</a><br>
-  <h3>退勤時間の修正を行います。<h3><br>
+  <?php if (isset($trackfarm_kintai_rec['finish_time']) == true) { ?>
+    <h3>退勤時間の修正を行います。<h3><br>
+  <?php } else { ?>
+    <h3>退勤時間の追加を行います。<h3><br>
+  <?php } ?>
 
   <?php
 
@@ -33,13 +37,7 @@
   $finish_time = $_GET["finish_time"];
   $rest_time = $_GET["rest_time"];
   $return_time = $_GET["return_time"];
-  if ($finish_time == "") {
-    header("Location: ../../home.php");
-    exit;
-  }
 
-
-  $WHERE_user_id = 'WHERE user_id='.$user_id;
   $dsn = 'mysql:dbname=test;host=localhost;charset=utf8';
   $user = 'root';
   $password = '';

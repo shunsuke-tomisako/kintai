@@ -38,8 +38,6 @@
     exit;
   }
 
-
-  $WHERE_user_id = 'WHERE user_id='.$user_id;
   $dsn = 'mysql:dbname=test;host=localhost;charset=utf8';
   $user = 'root';
   $password = '';

@@ -22,7 +22,6 @@
     exit;
   }
 
-  $WHERE_user_id = 'WHERE user_id='.$user_id;
   $dsn = 'mysql:dbname=test;host=localhost;charset=utf8';
   $user = 'root';
   $password = '';
@@ -78,6 +77,7 @@
     <thead>
       <tr>
         <th scope="col">日付</th>
+        <th scope="col"></th>
         <th scope="col">出勤時間</th>
         <th scope="col">退勤時間</th>
         <th scope="col">休憩開始時間</th>
@@ -222,6 +222,7 @@
       ?>
       <tr>
         <th scope="row"><?php echo mb_substr($trackfarm_kintai_rec['date'], 5, 5); ?></th>
+        <td><a href="modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $trackfarm_kintai_rec['date']; ?>">修正</a></td>
         <td><?php echo mb_substr($trackfarm_kintai_rec['begin_time'], 10); ?></td>
         <?php if (isset($trackfarm_kintai_rec['finish_time']) == true && (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5) { ?>
           <td><?php echo (int)mb_substr($trackfarm_kintai_rec['finish_time'], 10, 3) + 24 .mb_substr($trackfarm_kintai_rec['finish_time'], 13); ?></td>
@@ -238,6 +239,7 @@
       <?php } ?> 
       <tr>
         <th scope="row">合計</th>
+        <td></td>
         <td>出勤日数</td>
         <td><?php echo count($trackfarm_kintai_rec_list); ?></td>
         <td></td>
