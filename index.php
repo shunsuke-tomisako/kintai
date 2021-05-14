@@ -65,6 +65,8 @@
     $status = $_GET["status"];
   }
 
+  // 名前取得
+
   echo $user_id .'<p>さん</p>';
 
   if ($trackfarm_kintai_rec == false && $status == 1) {
@@ -132,11 +134,11 @@
   <a href="index.php?status=2&user_id=<?php echo $user_id; ?>" class="btn btn-secondary btn-lg active w-50" role="button" aria-pressed="true" onClick="return checkTaikin()">退勤</a>
   <?php } ?>
 
-  <?php if (isset($trackfarm_kintai_rec['begin_time']) == true && isset($trackfarm_kintai_rec['finish_time']) == false && isset($trackfarm_kintai_rec['rest_time']) == false) { ?>
+  <?php if (isset($trackfarm_kintai_rec['begin_time']) == true && isset($trackfarm_kintai_rec['finish_time']) == false && isset($trackfarm_kintai_rec['rest_time']) == false && $now_hour < 21) { ?>
   <a href="index.php?status=3&user_id=<?php echo $user_id; ?>" class="btn btn-success btn-lg active w-50" role="button" aria-pressed="true" onClick="return checkRest()">休憩</a>
   <?php } ?>
 
-  <?php if (isset($trackfarm_kintai_rec['begin_time']) == true && isset($trackfarm_kintai_rec['finish_time']) == false && isset($trackfarm_kintai_rec['rest_time']) == false) { ?>
+  <?php if (isset($trackfarm_kintai_rec['begin_time']) == true && isset($trackfarm_kintai_rec['finish_time']) == false && isset($trackfarm_kintai_rec['rest_time']) == false && $now_hour < 21) { ?>
   <a href="index.php?status=5&user_id=<?php echo $user_id; ?>" class="btn btn-success btn-lg active w-50" role="button" aria-pressed="true" onClick="return checkRest()">休憩（1時間）</a>
   <?php } ?>
 

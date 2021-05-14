@@ -12,13 +12,25 @@
     <h1>勤怠管理</h1>
   </header>
 
-  <a href="index.php?user_id=1" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">name1</a>
-  <a href="index.php?user_id=2" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">name2</a>
+  <h3>名前を選択して下さい。<h3><br>
+
+  <?php 
+  $dsn = 'mysql:dbname=test;host=localhost;charset=utf8';
+  $user = 'root';
+  $password = '';
+  $dbh = new PDO($dsn,$user,$password);
+  $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+  $sql = 'SELECT * FROM users';
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute();
+  $trackfarm_kintai_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  ?>
+
+  <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
+    <a href="index.php?user_id=<?php echo $trackfarm_kintai_rec['user_id']; ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><?php echo $trackfarm_kintai_rec['name']; ?></a>
+  <?php } ?>
   <br>
-  <a href="index.php?user_id=3" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">name3</a>
-  <a href="index.php?user_id=4" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">name4</a>
-  <br>
-  <a href="index.php?user_id=5" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">name5</a>
-  <a href="index.php?user_id=6" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">name6</a>
+  <a href="modify.php" class="btn btn-light">編集</a>
 </body>
 </html>
