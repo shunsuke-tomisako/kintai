@@ -21,11 +21,15 @@
   $dbh = new PDO($dsn,$user,$password);
   $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-  $sql = 'SELECT * FROM users';
+  $sql = 'SELECT * FROM users WHERE company_name="トラックファーム"';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
   $trackfarm_kintai_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+  $sql2 = 'SELECT * FROM users WHERE company_name="レベルゼロ"';
+  $stmt2 = $dbh->prepare($sql2);
+  $stmt2->execute();
+  $trackfarm_kintai_list2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
   $value = "";
   if (isset($_POST["value"])) {
@@ -33,7 +37,6 @@
   }
 
   if ($value == 1) {
-    // echo $_POST['name'];
     $sql = 'DELETE FROM users WHERE (name) = ("'.$_POST['name'].'")';
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
@@ -48,16 +51,32 @@
   }
   ?>
 
+  <h3>トラックファーム</h3><br>
   <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
-    <a href="" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><?php echo $trackfarm_kintai_rec['name']; ?></a>
-    <form action="./modify.php" method="post" onSubmit="return checkDelete()">
-      <input type="hidden" name="value" value="1">
-      <input type="hidden" name="name" value="<?php echo $trackfarm_kintai_rec['name']; ?>">
-      <input type="submit" value="削除" class="btn btn-danger">
-    </form>
-    <!-- <button class="btn btn-danger" name="value" value="1" onClick="return checkDelete()">削除</button> -->
+    <div class="parent">
+      <a href="" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><?php echo $trackfarm_kintai_rec['name']; ?></a>
+      <form action="./modify.php" method="post" onSubmit="return checkDelete()" class="child">
+        <input type="hidden" name="value" value="1">
+        <input type="hidden" name="name" value="<?php echo $trackfarm_kintai_rec['name']; ?>">
+        <input type="submit" value="削除" class="btn btn-danger">
+      </form>
+    </div>
   <?php } ?>
-
+  <br>
+  <h3>レベルゼロ</h3><br>
+  <?php foreach ($trackfarm_kintai_list2 as $trackfarm_kintai_rec2) { ?>
+    <div class="parent">
+      <a href="" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><?php echo $trackfarm_kintai_rec2['name']; ?></a>
+      <div class="child">
+        <form action="./modify.php" method="post" onSubmit="return checkDelete()">
+          <input type="hidden" name="value" value="1">
+          <input type="hidden" name="name" value="<?php echo $trackfarm_kintai_rec2['name']; ?>">
+          <input type="submit" value="削除" class="btn btn-danger">
+        </form>
+      </div>
+    </div>
+  <?php } ?>
+  <br>
   <form action="./modify.php" method="post" onSubmit="return checkSubmit()">
     <input type="hidden" name="value" value="2">
     <select name="company_name">
@@ -67,7 +86,7 @@
     　名前 <input type="text" name="name">
     　<input type="submit" value="追加する">
   </form>
-  <br>
+  <br><br>
 
   <?php
   if ($value == 2 && $_POST["name"] == "") {
