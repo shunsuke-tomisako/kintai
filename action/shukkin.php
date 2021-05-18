@@ -15,8 +15,7 @@
   <a href="../home.php" class="btn btn-dark btn-lg active" role="button" aria-pressed="true" >名前の選択に戻る</a>
 
   <?php
-  // $now_datetime = date('Y/m/d H:i');
-  $now_datetime = date('Y/m/d H:i:s');
+  $now_datetime = date('Y/m/d H:i');
   echo '<h3>出勤しました。本日も一日がんばりましょう！<h3><br>';
   echo $now_datetime;
 

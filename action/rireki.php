@@ -55,7 +55,13 @@
   $stmt2->execute();
   $trackfarm_kintai_rec_list2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-  echo $user_id .'<p>さん</p>';
+  // 名前取得
+  $sql3 = 'SELECT name FROM users WHERE user_id="'.$user_id.'"';
+  $stmt3 = $dbh->prepare($sql3);
+  $stmt3->execute();
+  $trackfarm_kintai_rec3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+
+  echo $trackfarm_kintai_rec3["name"].'<p>さん</p>';
   ?>
 
   <form action="./rireki.php" method="get">
@@ -100,56 +106,72 @@
           $restTime = strtotime($trackfarm_kintai_rec['return_time']) - strtotime($trackfarm_kintai_rec['rest_time']);
           if ($restTime > 0) {
             $restTimeh = floor($restTime / 3600);
+            if ($restTimeh < 10) {
+              $restTimeh = "0" . $restTimeh;
+            }
             $restTimeH = $restTimeh .":";
             $restTimem = floor(($restTime - $restTimeh * 3600) / 60);
-            $restTimeM = $restTimem . ":";
-            $restTimeS = $restTime - $restTimeh * 3600 - $restTimem * 60;
+            if ($restTimem < 10) {
+              $restTimem = "0" . $restTimem;
+            }
+            $restTimeM = $restTimem;
           } else {
             $restTimeH = "";
             $restTimeM = "";
-            $restTimeS = "";
           }
 
           // 休憩時間合計計算
           $restTimeSum += $restTime;
           if ($restTimeSum > 0) {
             $restTimeSumh = floor($restTimeSum / 3600);
+            if ($restTimeSumh < 10) {
+              $restTimeSumh = "0" . $restTimeSumh;
+            }
             $restTimeSumH = $restTimeSumh .":";
             $restTimeSumm = floor(($restTimeSum - $restTimeSumh * 3600) / 60);
-            $restTimeSumM = $restTimeSumm . ":";
-            $restTimeSumS = $restTimeSum - $restTimeSumh * 3600 - $restTimeSumm * 60;
+            if ($restTimeSumm < 10) {
+              $restTimeSumm = "0" . $restTimeSumm;
+            }
+            $restTimeSumM = $restTimeSumm;
           } else {
             $restTimeSumH = "";
             $restTimeSumM = "";
-            $restTimeSumS = "";
           }
 
           // 勤務時間計算
           $workingTime = strtotime($trackfarm_kintai_rec['finish_time']) - strtotime($trackfarm_kintai_rec['begin_time']) - (strtotime($trackfarm_kintai_rec['return_time']) - strtotime($trackfarm_kintai_rec['rest_time']));
           if ($workingTime > 0) {
             $workingTimeh = floor($workingTime / 3600);
+            if ($workingTimeh < 10) {
+              $workingTimeh = "0" . $workingTimeh;
+            }
             $workingTimeH = $workingTimeh .":";
             $workingTimem = floor(($workingTime - $workingTimeh * 3600) / 60);
-            $workingTimeM = $workingTimem .":";
-            $workingTimeS = $workingTime - $workingTimeh * 3600 - $workingTimem * 60;
+            if ($workingTimem < 10) {
+              $workingTimem = "0" . $workingTimem;
+            }
+            $workingTimeM = $workingTimem;
           } else {
             $workingTimeH = "";
             $workingTimeM = "";
-            $workingTimeS = "";
           }
 
           // 勤務時間合計計算
           $workingTimeSum += $workingTime;
           if ($workingTimeSum > 0) {
             $workingTimeSumh = floor($workingTimeSum / 3600);
+            if ($workingTimeSumh < 10) {
+              $workingTimeSumh = "0" . $workingTimeSumh;
+            }
             $workingTimeSumH = $workingTimeSumh .":";
             $workingTimeSumm = floor(($workingTimeSum - $workingTimeSumh * 3600) / 60);
-            $workingTimeSumM = $workingTimeSumm .":";
-            $workingTimeSumS = $workingTimeSum - $workingTimeSumh * 3600 - $workingTimeSumm * 60;
+            if ($workingTimeSumm < 10) {
+              $workingTimeSumm = "0" . $workingTimeSumm;
+            }
+            $workingTimeSumM = $workingTimeSumm;
           } else {
             $workingTimeSumH = "";
             $workingTimeSumM = "";
-            $workingTimeSumS = "";
           }
 
           // 残業時間計算
@@ -160,28 +182,36 @@
           }
           if ($overTime > 0) {
             $overTimeh = floor($overTime / 3600);
+            if ($overTimeh < 10) {
+              $overTimeh = "0" . $overTimeh;
+            }
             $overTimeH = $overTimeh .":";
             $overTimem = floor(($overTime - $overTimeh * 3600) / 60);
-            $overTimeM = $overTimem .":";
-            $overTimeS = $overTime - $overTimeh * 3600 - $overTimem * 60;
+            if ($overTimem < 10) {
+              $overTimem = "0" . $overTimem;
+            }
+            $overTimeM = $overTimem;
           } else {
             $overTimeH = "";
             $overTimeM = "";
-            $overTimeS = "";
           }
 
           // 残業時間合計計算
           $overTimeSum += $overTime;
           if ($overTimeSum > 0) {
             $overTimeSumh = floor($overTimeSum / 3600);
+            if ($overTimeSumh < 10) {
+              $overTimeSumh = "0" . $overTimeSumh;
+            }
             $overTimeSumH = $overTimeSumh .":";
             $overTimeSumm = floor(($overTimeSum - $overTimeSumh * 3600) / 60);
-            $overTimeSumM = $overTimeSumm .":";
-            $overTimeSumS = $overTimeSum - $overTimeSumh * 3600 - $overTimeSumm * 60;
+            if ($overTimeSumm < 10) {
+              $overTimeSumm = "0" . $overTimeSumm;
+            }
+            $overTimeSumM = $overTimeSumm;
           } else {
             $overTimeSumH = "";
             $overTimeSumM = "";
-            $overTimeSumS = "";
           }
 
           // 夜勤時間計算
@@ -193,14 +223,18 @@
           }
           if (isset($trackfarm_kintai_rec['finish_time']) == true && ((int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) >= 22 || (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5)) {
             $nightTimeh = floor($nightTime / 3600);
+            if ($nightTimeh < 10) {
+              $nightTimeh = "0" . $nightTimeh;
+            }
             $nightTimeH = $nightTimeh .":";
             $nightTimem = floor(($nightTime - $nightTimeh * 3600) / 60);
-            $nightTimeM = $nightTimem .":";
-            $nightTimeS = $nightTime - $nightTimeh * 3600 - $nightTimem * 60;
+            if ($nightTimem < 10) {
+              $nightTimem = "0" . $nightTimem;
+            }
+            $nightTimeM = $nightTimem;
           } else {
             $nightTimeH = "";
             $nightTimeM = "";
-            $nightTimeS = "";
           }
 
           // 夜勤時間合計計算
@@ -208,33 +242,37 @@
           $nightTimeSum += $nightTime;
           if ($nightTimeSum > 0) {
             $nightTimeSumh = floor($nightTimeSum / 3600);
+            if ($nightTimeSumh < 10) {
+              $nightTimeSumh = "0" . $nightTimeSumh;
+            }
             $nightTimeSumH = $nightTimeSumh .":";
             $nightTimeSumm = floor(($nightTimeSum - $nightTimeSumh * 3600) / 60);
-            $nightTimeSumM = $nightTimeSumm .":";
-            $nightTimeSumS = $nightTimeSum - $nightTimeSumh * 3600 - $nightTimeSumm * 60;
+            if ($nightTimeSumm < 10) {
+              $nightTimeSumm = "0" . $nightTimeSumm;
+            }
+            $nightTimeSumM = $nightTimeSumm;
           } else {
             $nightTimeSumH = "";
             $nightTimeSumM = "";
-            $nightTimeSumS = "";
           }
 
 
       ?>
       <tr>
-        <th scope="row"><?php echo mb_substr($trackfarm_kintai_rec['date'], 5, 5); ?></th>
+        <th scope="row"><?php echo mb_substr($trackfarm_kintai_rec['date'], 5, 6); ?></th>
         <td><a href="modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $trackfarm_kintai_rec['date']; ?>">修正</a></td>
-        <td><?php echo mb_substr($trackfarm_kintai_rec['begin_time'], 10); ?></td>
+        <td><?php echo mb_substr($trackfarm_kintai_rec['begin_time'], 10, 6); ?></td>
         <?php if (isset($trackfarm_kintai_rec['finish_time']) == true && (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5) { ?>
-          <td><?php echo (int)mb_substr($trackfarm_kintai_rec['finish_time'], 10, 3) + 24 .mb_substr($trackfarm_kintai_rec['finish_time'], 13); ?></td>
+          <td><?php echo (int)mb_substr($trackfarm_kintai_rec['finish_time'], 10, 3) + 24 .mb_substr($trackfarm_kintai_rec['finish_time'], 13, 3); ?></td>
         <?php } else { ?>
-          <td><?php echo mb_substr($trackfarm_kintai_rec['finish_time'], 10); ?></td>
+          <td><?php echo mb_substr($trackfarm_kintai_rec['finish_time'], 10, 6); ?></td>
         <?php } ?>
-        <td><?php echo mb_substr($trackfarm_kintai_rec['rest_time'], 10); ?></td>
-        <td><?php echo mb_substr($trackfarm_kintai_rec['return_time'], 10); ?></td>
-        <td><?php echo $restTimeH .$restTimeM .$restTimeS; ?></td>
-        <td><?php echo $overTimeH .$overTimeM .$overTimeS; ?></td>
-        <td><?php echo $nightTimeH .$nightTimeM .$nightTimeS; ?></td>
-        <td><?php echo $workingTimeH .$workingTimeM .$workingTimeS; ?></td>
+        <td><?php echo mb_substr($trackfarm_kintai_rec['rest_time'], 10, 6); ?></td>
+        <td><?php echo mb_substr($trackfarm_kintai_rec['return_time'], 10, 6); ?></td>
+        <td><?php echo $restTimeH .$restTimeM; ?></td>
+        <td><?php echo $overTimeH .$overTimeM; ?></td>
+        <td><?php echo $nightTimeH .$nightTimeM; ?></td>
+        <td><?php echo $workingTimeH .$workingTimeM; ?></td>
       </tr>
       <?php } ?> 
       <tr>
@@ -244,10 +282,46 @@
         <td><?php echo count($trackfarm_kintai_rec_list); ?></td>
         <td></td>
         <td></td>
-        <td><?php echo $restTimeSumH .$restTimeSumM .$restTimeSumS; ?></td>
-        <td><?php echo $overTimeSumH .$overTimeSumM .$overTimeSumS; ?></td>
-        <td><?php echo $nightTimeSumH .$nightTimeSumM .$nightTimeSumS; ?></td>
-        <td><?php echo $workingTimeSumH .$workingTimeSumM .$workingTimeSumS; ?></td>
+        <td><?php echo $restTimeSumH .$restTimeSumM; ?></td>
+        <td><?php echo $overTimeSumH .$overTimeSumM; ?></td>
+        <td><?php echo $nightTimeSumH .$nightTimeSumM; ?></td>
+        <td><?php echo $workingTimeSumH .$workingTimeSumM; ?></td>
+      </tr>
+
+      <!-- 10進法計算 -->
+      <?php
+      if ($restTimeSumM != "") {
+        $restTimeSumM10 = mb_substr(sprintf('%.2f', $restTimeSumM / 60), 2);
+      } else {
+        $restTimeSumM10 = "";
+      }
+      if ($overTimeSumM != "") {
+        $overTimeSumM10 = mb_substr(sprintf('%.2f', $overTimeSumM / 60), 2);
+      } else {
+        $overTimeSumM10 = "";
+      }
+      if ($nightTimeSumM != "") {
+        $nightTimeSumM10 = mb_substr(sprintf('%.2f', $nightTimeSumM / 60), 2);
+      } else {
+        $nightTimeSumM10 = "";
+      }
+      if ($workingTimeSumM != "") {
+        $workingTimeSumM10 = mb_substr(sprintf('%.2f', $workingTimeSumM / 60), 2);
+      } else {
+        $workingTimeSumM10 = "";
+      }
+      ?>
+      <tr>
+        <th scope="row">合計(10進法)</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><?php echo $restTimeSumH . $restTimeSumM10; ?></td>
+        <td><?php echo $overTimeSumH . $overTimeSumM10; ?></td>
+        <td><?php echo $nightTimeSumH . $nightTimeSumM10; ?></td>
+        <td><?php echo $workingTimeSumH . $workingTimeSumM10; ?></td>
       </tr>
     </tbody>
   </table>

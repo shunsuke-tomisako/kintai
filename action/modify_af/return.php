@@ -72,7 +72,7 @@
   ?>
 
   <form action="./return.php" method="get" onSubmit="return checkSubmit()">
-    <h3><input type="datetime-local" name="time" step="1" value="<?php echo str_replace(' ', 'T', $_GET["return_time"]); ?>"><h3><br>
+    <h3><input type="datetime-local" name="time" step="60" value="<?php echo str_replace(' ', 'T', $_GET["return_time"]); ?>"><h3><br>
     <input type="hidden" name="value" value="1">
     <input type="hidden" name="user_id" value="<?php echo $_GET["user_id"]; ?>">
     <input type="hidden" name="date" value="<?php echo $_GET["date"]; ?>">

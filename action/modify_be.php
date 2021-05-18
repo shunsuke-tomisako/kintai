@@ -39,35 +39,41 @@
   $stmt->execute();
   $trackfarm_kintai_rec = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  echo $user_id .'<p>さん</p>';
+  // 名前取得
+  $sql2 = 'SELECT name FROM users WHERE user_id="'.$user_id.'"';
+  $stmt2 = $dbh->prepare($sql2);
+  $stmt2->execute();
+  $trackfarm_kintai_rec2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+  echo $trackfarm_kintai_rec2["name"].'<p>さん</p>';
 
   ?>
 
 
   <?php if (isset($trackfarm_kintai_rec['begin_time']) == true) { ?>
     <a href="modify_af/shukkin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-danger btn-lg active w-35" role="button" aria-pressed="true">　出勤時間 　修正</a> 
-    <?php echo $trackfarm_kintai_rec['begin_time'] ."<br>";?>
+    <?php echo mb_substr($trackfarm_kintai_rec['begin_time'], 5, 11) ."<br>";?>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec['finish_time']) == true) { ?>
     <a href="modify_af/taikin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-secondary btn-lg active w-35" role="button" aria-pressed="true">　退勤時間 　修正</a>
-    <?php echo $trackfarm_kintai_rec['finish_time'] ."<br>"; ?>
+    <?php echo mb_substr($trackfarm_kintai_rec['finish_time'], 5, 11) ."<br>"; ?>
   <?php } else { ?>
     <a href="modify_af/taikin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-secondary btn-lg active w-35" role="button" aria-pressed="true">　退勤時間 　追加</a>
-    <?php echo "　　　　　　　　　" ."<br>"; ?>
+    <?php echo "　 　　　　" ."<br>"; ?>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec['rest_time']) == true) { ?>
     <a href="modify_af/rest.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-success btn-lg active w-35" role="button" aria-pressed="true">休憩開始時間 修正</a>
-    <?php echo $trackfarm_kintai_rec['rest_time'] ."<br>"; ?>
+    <?php echo mb_substr($trackfarm_kintai_rec['rest_time'], 5, 11) ."<br>"; ?>
   <?php } ?>
 
   <?php if (isset($trackfarm_kintai_rec['return_time']) == true) { ?>
     <a href="modify_af/return.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-info btn-lg active w-35" role="button" aria-pressed="true">休憩終了時間 修正</a>
-    <?php echo $trackfarm_kintai_rec['return_time'] ."<br>"; ?>
+    <?php echo mb_substr($trackfarm_kintai_rec['return_time'], 5, 11) ."<br>"; ?>
   <?php } else if (isset($trackfarm_kintai_rec['rest_time']) == true) { ?>
     <a href="modify_af/return.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-info btn-lg active w-35" role="button" aria-pressed="true">休憩終了時間 追加</a>
-    <?php echo "　　　　　　　　　" ."<br>"; ?>
+    <?php echo "　 　　　　" ."<br>"; ?>
   <?php } ?>
 
 </body>

@@ -36,12 +36,11 @@
 
   $today = date("Y/m/d");
   $yesterday = date("Y/m/d",strtotime("-1 day"));
-  // $now_datetime = date('Y/m/d H:i');
-  $now_datetime = date('Y/m/d H:i:s');
+  $now_datetime = date('Y/m/d H:i');
   $now_datetime_str = strtotime($now_datetime);
   $now_hour = date("H");
   // 1時間後
-  $one_hour = date('Y/m/d H:i:s',strtotime("+1 hour"));
+  $one_hour = date('Y/m/d H:i',strtotime("+1 hour"));
 
   $dsn = 'mysql:dbname=test;host=localhost;charset=utf8';
   $user = 'root';
@@ -66,8 +65,12 @@
   }
 
   // 名前取得
+  $sql3 = 'SELECT name FROM users WHERE user_id="'.$user_id.'"';
+  $stmt3 = $dbh->prepare($sql3);
+  $stmt3->execute();
+  $trackfarm_kintai_rec3 = $stmt3->fetch(PDO::FETCH_ASSOC);
 
-  echo $user_id .'<p>さん</p>';
+  echo $trackfarm_kintai_rec3["name"].'<p>さん</p>';
 
   if ($trackfarm_kintai_rec == false && $status == 1) {
 
