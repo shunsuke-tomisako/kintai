@@ -45,6 +45,9 @@
   } else {
     $month = mb_substr($trackfarm_kintai_rec_list3[0]["MAX(date)"], 0, 7) ."%";
   }
+  // csvダウンロード名
+  $month2 = mb_substr($month, 0, 7);
+
   $sql = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date LIKE "'.$month.'"';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
@@ -71,14 +74,16 @@
           $trackfarm_kintai_rec2["MONTH(date)"] = "0". $trackfarm_kintai_rec2["MONTH(date)"];
         }
       ?>
-      <option selected><?php echo $trackfarm_kintai_rec2["YEAR(date)"] ."-" .$trackfarm_kintai_rec2["MONTH(date)"]; ?></option>
+      <option value="<?php echo $trackfarm_kintai_rec2["YEAR(date)"] ."-" .$trackfarm_kintai_rec2["MONTH(date)"]; ?>" <?php if (isset($_GET["month"]) == true && $trackfarm_kintai_rec2["YEAR(date)"] ."-" .$trackfarm_kintai_rec2["MONTH(date)"] == $_GET["month"]) echo "selected='selected'" ?> <?php if (isset($_GET["month"]) == false) echo "selected='selected'" ?>>
+        <?php echo $trackfarm_kintai_rec2["YEAR(date)"] ."-" .$trackfarm_kintai_rec2["MONTH(date)"]; ?>
+      </option>
       <?php } ?>
     </select>
     <input type="hidden" name="user_id" value="<?php echo $_GET["user_id"]; ?>">
     <input type="submit" value="表示">
   </form>
   <br>
-  <b><a id="download" href="#" download="test.csv" onclick="handleDownload()">csvファイルダウンロード</a></b>
+  <b><a id="download" href="#" download="<?php echo $trackfarm_kintai_rec3["name"] . "_" . $month2; ?>.csv" onclick="handleDownload()">csvファイルダウンロード</a></b>
   <br><br>
 
   <table class="table" id="table">
@@ -348,6 +353,7 @@
 
       let blob = new Blob([bom, data_csv], {type : "text/csv"});
       if (window.navigator.msSaveBlob) {
+        window.navigator.msSaveBlob(blob, "<?php echo $trackfarm_kintai_rec3["name"] . "_" . $month2; ?>.csv");
         window.navigator.msSaveBlob(blob, "test.csv");
       } else {
         document.getElementById("download").href = window.URL.createObjectURL(blob);
