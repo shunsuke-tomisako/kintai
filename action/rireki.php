@@ -78,12 +78,14 @@
     <input type="submit" value="表示">
   </form>
   <br>
+  <b><a id="download" href="#" download="test.csv" onclick="handleDownload()">csvファイルダウンロード</a></b>
+  <br><br>
 
-  <table class="table">
+  <table class="table" id="table">
     <thead>
       <tr>
-        <th scope="col">日付</th>
         <th scope="col"></th>
+        <th scope="col">日付</th>
         <th scope="col">出勤時間</th>
         <th scope="col">退勤時間</th>
         <th scope="col">休憩開始時間</th>
@@ -259,8 +261,8 @@
 
       ?>
       <tr>
-        <th scope="row"><?php echo mb_substr($trackfarm_kintai_rec['date'], 5, 6); ?></th>
-        <td><a href="modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $trackfarm_kintai_rec['date']; ?>">修正</a></td>
+        <th><a href="modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $trackfarm_kintai_rec['date']; ?>">修正</a></th>
+        <td scope="row"><?php echo mb_substr($trackfarm_kintai_rec['date'], 5, 6); ?></td>
         <td><?php echo mb_substr($trackfarm_kintai_rec['begin_time'], 10, 6); ?></td>
         <?php if (isset($trackfarm_kintai_rec['finish_time']) == true && (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5) { ?>
           <td><?php echo (int)mb_substr($trackfarm_kintai_rec['finish_time'], 10, 3) + 24 .mb_substr($trackfarm_kintai_rec['finish_time'], 13, 3); ?></td>
@@ -276,9 +278,9 @@
       </tr>
       <?php } ?> 
       <tr>
-        <th scope="row">合計</th>
-        <td></td>
-        <td>出勤日数</td>
+        <th scope="row"></th>
+        <td><b>合計<b></td>
+        <td><b>出勤日数<b></td>
         <td><?php echo count($trackfarm_kintai_rec_list); ?></td>
         <td></td>
         <td></td>
@@ -312,8 +314,8 @@
       }
       ?>
       <tr>
-        <th scope="row">合計(10進法)</th>
-        <td></td>
+        <th scope="row"></th>
+        <td><b>合計(10進法)<b></td>
         <td></td>
         <td></td>
         <td></td>
@@ -326,5 +328,33 @@
     </tbody>
   </table>
 
+  <!-- csvダウンロード -->
+  <script>
+    function handleDownload() {
+      let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+      let table = document.getElementById('table');
+      let data_csv="";
+
+      for (let i = 0; i < table.rows.length; i++) {
+        for (let j = 1; j < table.rows[i].cells.length; j++) {
+          data_csv += table.rows[i].cells[j].innerText;
+          if (j == table.rows[i].cells.length-1) {
+            data_csv += "\n";
+          } else {
+            data_csv += ",";
+          }
+        }
+      }
+
+      let blob = new Blob([bom, data_csv], {type : "text/csv"});
+      if (window.navigator.msSaveBlob) {
+        window.navigator.msSaveBlob(blob, "test.csv");
+      } else {
+        document.getElementById("download").href = window.URL.createObjectURL(blob);
+      }
+
+      delete data_csv;
+    }
+  </script>
 </body>
 </html>
