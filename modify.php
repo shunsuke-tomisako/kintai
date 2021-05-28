@@ -4,15 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="style_home.css">
+  <link rel="stylesheet" href="style.css">
   <title>勤怠管理</title>
 </head>
 <body>
-  <header>
-    <h1>勤怠管理</h1>
-  </header>
-
-  <h3>編集を行います。<h3><br>
 
   <?php 
   $dsn = 'mysql:dbname=test;host=localhost;charset=utf8';
@@ -21,12 +16,12 @@
   $dbh = new PDO($dsn,$user,$password);
   $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-  $sql = 'SELECT * FROM users WHERE company_name="トラックファーム"';
+  $sql = 'SELECT * FROM users WHERE company_name="trackfarm"';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
   $trackfarm_kintai_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  $sql2 = 'SELECT * FROM users WHERE company_name="レベルゼロ"';
+  $sql2 = 'SELECT * FROM users WHERE company_name="levelzero"';
   $stmt2 = $dbh->prepare($sql2);
   $stmt2->execute();
   $trackfarm_kintai_list2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
@@ -50,51 +45,59 @@
     header("Location: home.php");
   }
   ?>
-
-  <h3>トラックファーム</h3><br>
-  <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
-    <div class="parent">
-      <a href="" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><?php echo $trackfarm_kintai_rec['name']; ?></a>
-      <form action="./modify.php" method="post" onSubmit="return checkDelete()" class="child">
-        <input type="hidden" name="value" value="1">
-        <input type="hidden" name="name" value="<?php echo $trackfarm_kintai_rec['name']; ?>">
-        <input type="submit" value="削除" class="btn btn-danger">
-      </form>
-    </div>
-  <?php } ?>
-  <br>
-  <h3>レベルゼロ</h3><br>
-  <?php foreach ($trackfarm_kintai_list2 as $trackfarm_kintai_rec2) { ?>
-    <div class="parent">
-      <a href="" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><?php echo $trackfarm_kintai_rec2['name']; ?></a>
-      <div class="child">
+  <div class="modify">
+    <div class="memberlist">
+      <div class="company_name">
+        <img src="./img/levelzero.png" alt="levelzero">
+      </div>
+      <?php foreach ($trackfarm_kintai_list2 as $trackfarm_kintai_rec2) { ?>
+      <div class="members">
+        <p><?php echo $trackfarm_kintai_rec2['name']; ?></p>
         <form action="./modify.php" method="post" onSubmit="return checkDelete()">
           <input type="hidden" name="value" value="1">
           <input type="hidden" name="name" value="<?php echo $trackfarm_kintai_rec2['name']; ?>">
-          <input type="submit" value="削除" class="btn btn-danger">
+          <input type="image" src="./img/delete.png" class="delete">
+          <input type="submit" id="submit">
         </form>
       </div>
+      <?php } ?>
+      <form action="./modify.php" method="post" onSubmit="return checkSubmit()">
+        <input type="hidden" name="value" value="2">
+        <input type="hidden" name="company_name" value="levelzero">
+        <input type="text" name="name" class="name"><br>
+        <input type="submit" value="追加" class="add">
+      </form>
     </div>
-  <?php } ?>
-  <br>
-  <form action="./modify.php" method="post" onSubmit="return checkSubmit()">
-    <input type="hidden" name="value" value="2">
-    <select name="company_name">
-      <option value="トラックファーム">トラックファーム</option>
-      <option value="レベルゼロ">レベルゼロ</option>
-    </select>
-    　名前 <input type="text" name="name">
-    　<input type="submit" value="追加する">
-  </form>
-  <br><br>
+    <div class="memberlist">
+      <div class="company_name">
+        <img src="./img/trackfarm.png" alt="trackfarm">
+      </div>
+      <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
+      <div class="members">
+        <p><?php echo $trackfarm_kintai_rec['name']; ?></p>
+        <form action="./modify.php" method="post" onSubmit="return checkDelete()">
+          <input type="hidden" name="value" value="1">
+          <input type="hidden" name="name" value="<?php echo $trackfarm_kintai_rec['name']; ?>">
+          <input type="image" src="./img/delete.png" class="delete">
+          <input type="submit" id="submit">
+        </form>
+      </div>
+      <?php } ?>
+      <form action="./modify.php" method="post" onSubmit="return checkSubmit()">
+        <input type="hidden" name="value" value="2">
+        <input type="hidden" name="company_name" value="trackfarm">
+        <input type="text" name="name" class="name"><br>
+        <input type="submit" value="追加" class="add">
+      </form>
+    </div>
+    <a href="home.php" class="return" role="button" aria-pressed="true"><img src="./img/return.png"></a>
+  </div>
 
   <?php
   if ($value == 2 && $_POST["name"] == "") {
     echo "名前を入力して下さい。" . "<br>" . "<br>";
   }
   ?>
-
-  <a href="home.php" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">名前の選択に戻る</a>
 
   <script>
   function checkSubmit() {

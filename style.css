@@ -1,0 +1,135 @@
+/* 全体 */
+body {
+  background-image: url(./img/bgimg.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+#submit {
+  display: none;
+}
+
+/* home.php */
+.home {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 20% auto 0;
+}
+
+.home .memberlist {
+  text-align: center;
+  flex-basis: 45%;
+}
+
+.home .company_name {
+  margin-bottom: 10%;
+}
+
+.home .company_name>img {
+  width: 40%;
+}
+
+.home .memberlist>.members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.home .memberlist>.members>.member {
+  width: 47%;
+  margin-bottom: 6%;
+}
+
+.home .memberlist>.members>.member a{
+  background-color: #364F6B;
+  border-radius: 5px;
+  color: white;
+  display: block;
+  padding: 20px 25px;
+}
+
+
+.home .addmember {
+  position: absolute;
+  top: 3%;
+  left: 87%;
+}
+
+.home .addmember>img {
+  width: 35%;
+}
+
+/* modify.php */
+.modify {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin: 18% auto 0;
+}
+
+.modify .memberlist {
+  text-align: center;
+  flex-basis: 45%;
+}
+
+.modify .company_name {
+  margin-bottom: 10%;
+}
+
+.modify .company_name>img {
+  width: 50%;
+}
+
+.modify .delete {
+  position: absolute;
+  top: 20%;
+  right: 24%;
+  width: 7%;
+}
+
+.modify .members {
+  position: relative;
+}
+
+.modify .members p {
+  font-size: 125%;
+}
+
+.modify .members p:before {
+  margin: 0 5% 0 -15%;
+  content: "";
+  display: inline-block;
+  width: 23px;
+  height: 25px;
+  background: url(./img/member.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.modify .name {
+  margin: 10% 0 5%;
+  padding: 2%;
+  width: 50%;
+}
+
+.modify .add {
+  background-color: #364F6B;
+  border-radius: 5px;
+  color: white;
+  padding: 6px 0;
+  width: 50%;
+  font-size: 0.8rem;
+  letter-spacing: 0.2rem;
+}
+
+.modify .return {
+  position: absolute;
+  top: 3%;
+  left: 5%;
+}
+
+.modify .return>img {
+  width: 35%
+;}

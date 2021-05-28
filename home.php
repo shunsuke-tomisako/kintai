@@ -4,16 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="style_home.css">
+  <link rel="stylesheet" href="style.css">
   <title>勤怠管理</title>
 </head>
 <body>
-  <header>
-    <h1>勤怠管理</h1>
-  </header>
-
-  <h3>名前を選択して下さい。<h3><br>
-
   <?php 
   $dsn = 'mysql:dbname=test;host=localhost;charset=utf8';
   $user = 'root';
@@ -21,26 +15,42 @@
   $dbh = new PDO($dsn,$user,$password);
   $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-  $sql = 'SELECT * FROM users WHERE company_name="トラックファーム"';
+  $sql = 'SELECT * FROM users WHERE company_name="trackfarm"';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
   $trackfarm_kintai_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  $sql2 = 'SELECT * FROM users WHERE company_name="レベルゼロ"';
+  $sql2 = 'SELECT * FROM users WHERE company_name="levelzero"';
   $stmt2 = $dbh->prepare($sql2);
   $stmt2->execute();
   $trackfarm_kintai_list2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
   ?>
-  <h3>トラックファーム</h3><br>
-  <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
-    <a href="index.php?user_id=<?php echo $trackfarm_kintai_rec['user_id']; ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><?php echo $trackfarm_kintai_rec['name']; ?></a>
-  <?php } ?>
-  <br><br>
-  <h3>レベルゼロ</h3><br>
-  <?php foreach ($trackfarm_kintai_list2 as $trackfarm_kintai_rec2) { ?>
-    <a href="index.php?user_id=<?php echo $trackfarm_kintai_rec2['user_id']; ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><?php echo $trackfarm_kintai_rec2['name']; ?></a>
-  <?php } ?>
-  <br><br>
-  <a href="modify.php" class="btn btn-light">編集</a>
+  <div class="home">
+    <div class="memberlist">
+      <div class="company_name">
+        <img src="./img/levelzero.png" alt="levelzero">
+      </div>
+      <div class="members">
+        <?php foreach ($trackfarm_kintai_list2 as $trackfarm_kintai_rec2) { ?>
+        <div class="member">
+        <a href="index.php?user_id=<?php echo $trackfarm_kintai_rec2['user_id']; ?>" role="button" aria-pressed="true"><?php echo $trackfarm_kintai_rec2['name']; ?></a>
+        </div>
+        <?php } ?>
+      </div>
+    </div>
+    <div class="memberlist">
+      <div class="company_name">
+        <img src="./img/trackfarm.png" alt="trackfarm">
+      </div>
+      <div class="members">
+        <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
+        <div class="member">
+        <a href="index.php?user_id=<?php echo $trackfarm_kintai_rec['user_id']; ?>" role="button" aria-pressed="true"><?php echo $trackfarm_kintai_rec['name']; ?></a>
+        </div>
+        <?php } ?>
+      </div>
+    </div>
+    <a href="modify.php" class="addmember"><img src="./img/addmember.png"></a>
+  </div>
 </body>
 </html>
