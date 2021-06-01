@@ -9,6 +9,21 @@ body {
   display: none;
 }
 
+a {
+  text-decoration: none;
+}
+
+.return {
+  position: absolute;
+  top: 3%;
+  left: 5%;
+}
+
+.return>img {
+  width: 35%;
+}
+
+
 /* home.php */
 .home {
   display: flex;
@@ -59,6 +74,7 @@ body {
 .home .addmember>img {
   width: 35%;
 }
+
 
 /* modify.php */
 .modify {
@@ -124,12 +140,126 @@ body {
   letter-spacing: 0.2rem;
 }
 
-.modify .return {
-  position: absolute;
-  top: 3%;
-  left: 5%;
+
+/* index.php */
+.index .name {
+  text-align: center;
+  color: #364F6B;
+  margin-top: 18%;
+  font-size: 1.3rem;
+}
+.index .name>strong {
+  font-size: 3.0rem;
+  font-weight: 400;
+  margin-right: 1%;
 }
 
-.modify .return>img {
-  width: 35%
-;}
+.index #time {
+  text-align: center;
+  color: #364F6B;
+  font-size: 1.2rem;
+  letter-spacing: 0.3px;
+}
+
+.index .action {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 75%;
+  margin: 3% auto 0;
+  justify-content: center;
+}
+.index .action a{
+  width: 25%;
+}
+
+.index .action img {
+  max-width: 100%;
+  padding: 8%;
+}
+
+.index .action span {
+  display: block;
+  height: 0;
+  width: 100%;
+  padding-bottom: 100%;
+}
+
+
+/* rireki.php */
+.rireki {
+  background-image: url(./img/bgimg2.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.rireki .name {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.rireki .month {
+  color: white;
+  font-size: 1.5rem;
+  letter-spacing: 1.5px;
+}
+
+.rireki .wrap {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-top: 10%;
+  margin-bottom: 3%;
+}
+
+
+.rireki .wrap select {
+  background-color: #364F6B;
+  color: white;
+  border: 0.5px solid white;
+  padding: 8% 33%;
+}
+
+.rireki .download {
+  position: absolute;
+  top: 3%;
+  left: 87%;
+}
+
+.rireki .download>img {
+  width: 35%;
+}
+
+.rireki table {
+  color: white;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.7rem;
+  border-collapse: collapse;
+}
+
+.rireki table .tr {
+  border-bottom: 1px solid white;
+}
+
+.rireki table .tr img {
+  width: 36%;
+}
+
+.rireki table td {
+  padding: 1%;
+}
+
+.rireki table td strong {
+  border: 1px solid white;
+  border-radius: 10%;
+  padding: 1% 15%;
+  font-weight: 500;
+}
+
+.rireki table .modify {
+  position: absolute;
+  /* left: 10%; */
+}

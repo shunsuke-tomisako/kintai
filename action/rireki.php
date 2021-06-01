@@ -3,16 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="../style_index.css">
+  <link rel="stylesheet" href="../style.css">
   <title>勤怠管理</title>
 </head>
-<body>
-  <header>
-    <h1>勤怠管理</h1>
-  </header>
-
-  <a href="../index.php?user_id=<?php echo $_GET["user_id"] ?>" class="btn btn-dark btn-lg active" role="button" aria-pressed="true" >選択に戻る</a><br>
+<body class='rireki'>
+  <a href="../index.php?user_id=<?php echo $_GET["user_id"] ?>" class="return" role="button" aria-pressed="true"><img src="../img/return2.png"></a><br>
 
   <?php
 
@@ -47,6 +42,9 @@
   }
   // csvダウンロード名
   $month2 = mb_substr($month, 0, 7);
+  // 表示月
+  $month3 = explode("-", $month2);
+  $month4 = $month3[0] . "年" . $month3[1] . "月";
 
   $sql = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date LIKE "'.$month.'"';
   $stmt = $dbh->prepare($sql);
@@ -64,41 +62,45 @@
   $stmt3->execute();
   $trackfarm_kintai_rec3 = $stmt3->fetch(PDO::FETCH_ASSOC);
 
-  echo $trackfarm_kintai_rec3["name"].'<p>さん</p>';
   ?>
 
-  <form action="./rireki.php" method="get">
-    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="month">
-      <?php foreach ($trackfarm_kintai_rec_list2 as $trackfarm_kintai_rec2) {
-        if ($trackfarm_kintai_rec2["MONTH(date)"] < 10) {
-          $trackfarm_kintai_rec2["MONTH(date)"] = "0". $trackfarm_kintai_rec2["MONTH(date)"];
-        }
-      ?>
-      <option value="<?php echo $trackfarm_kintai_rec2["YEAR(date)"] ."-" .$trackfarm_kintai_rec2["MONTH(date)"]; ?>" <?php if (isset($_GET["month"]) == true && $trackfarm_kintai_rec2["YEAR(date)"] ."-" .$trackfarm_kintai_rec2["MONTH(date)"] == $_GET["month"]) echo "selected='selected'" ?> <?php if (isset($_GET["month"]) == false) echo "selected='selected'" ?>>
-        <?php echo $trackfarm_kintai_rec2["YEAR(date)"] ."-" .$trackfarm_kintai_rec2["MONTH(date)"]; ?>
-      </option>
-      <?php } ?>
-    </select>
-    <input type="hidden" name="user_id" value="<?php echo $_GET["user_id"]; ?>">
-    <input type="submit" value="表示">
-  </form>
-  <br>
-  <b><a id="download" href="#" download="<?php echo $trackfarm_kintai_rec3["name"] . "_" . $month2; ?>.csv" onclick="handleDownload()">csvファイルダウンロード</a></b>
-  <br><br>
+  <div class="wrap">
 
-  <table class="table" id="table">
+    <div class="name"><?php echo $trackfarm_kintai_rec3["name"] ?>さん</div>
+    <div class="month"><?php echo $month4 ?></div>
+  
+    <form action="./rireki.php" method="get">
+      <select class="" aria-label=".form-select-sm example" name="month" onchange="submit(this.form)">
+        <?php foreach ($trackfarm_kintai_rec_list2 as $trackfarm_kintai_rec2) {
+          if ($trackfarm_kintai_rec2["MONTH(date)"] < 10) {
+            $trackfarm_kintai_rec2["MONTH(date)"] = "0". $trackfarm_kintai_rec2["MONTH(date)"];
+          }
+        ?>
+        <option value="<?php echo $trackfarm_kintai_rec2["YEAR(date)"] ."-" .$trackfarm_kintai_rec2["MONTH(date)"]; ?>" <?php if (isset($_GET["month"]) == true && $trackfarm_kintai_rec2["YEAR(date)"] ."-" .$trackfarm_kintai_rec2["MONTH(date)"] == $_GET["month"]) echo "selected='selected'" ?> <?php if (isset($_GET["month"]) == false) echo "selected='selected'" ?>>
+          <?php echo $trackfarm_kintai_rec2["YEAR(date)"] ."-" .$trackfarm_kintai_rec2["MONTH(date)"]; ?>
+        </option>
+        <?php } ?>
+      </select>
+      <input type="hidden" name="user_id" value="<?php echo $_GET["user_id"]; ?>">
+      <!-- <input type="submit" value="表示"> -->
+    </form>
+
+  </div>
+  <a id="download" href="#" download="<?php echo $trackfarm_kintai_rec3["name"] . "_" . $month2; ?>.csv" onclick="handleDownload()" class="download"><img src="../img/download.png" alt="csvファイルダウンロード"></a>
+
+  <table>
     <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col">日付</th>
-        <th scope="col">出勤時間</th>
-        <th scope="col">退勤時間</th>
-        <th scope="col">休憩開始時間</th>
-        <th scope="col">休憩終了時間</th>
-        <th scope="col">休憩時間</th>
-        <th scope="col">残業時間</th>
-        <th scope="col">夜勤時間</th>
-        <th scope="col">勤務時間</th>
+      <tr class="tr">
+        <td>日付</td>
+        <td>出勤時間</td>
+        <td>退勤時間</td>
+        <td>休憩開始時間</td>
+        <td>休憩終了時間</td>
+        <td>休憩時間</td>
+        <td>残業時間</td>
+        <td>夜勤時間</td>
+        <td>勤務時間</td>
+        <td></td>
       </tr>
     </thead>
     <tbody>
@@ -265,9 +267,8 @@
 
 
       ?>
-      <tr>
-        <th><a href="modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $trackfarm_kintai_rec['date']; ?>">修正</a></th>
-        <td scope="row"><?php echo mb_substr($trackfarm_kintai_rec['date'], 5, 6); ?></td>
+      <tr class="tr">
+        <td><?php echo mb_substr($trackfarm_kintai_rec['date'], 5, 6); ?></td>
         <td><?php echo mb_substr($trackfarm_kintai_rec['begin_time'], 10, 6); ?></td>
         <?php if (isset($trackfarm_kintai_rec['finish_time']) == true && (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5) { ?>
           <td><?php echo (int)mb_substr($trackfarm_kintai_rec['finish_time'], 10, 3) + 24 .mb_substr($trackfarm_kintai_rec['finish_time'], 13, 3); ?></td>
@@ -280,19 +281,20 @@
         <td><?php echo $overTimeH .$overTimeM; ?></td>
         <td><?php echo $nightTimeH .$nightTimeM; ?></td>
         <td><?php echo $workingTimeH .$workingTimeM; ?></td>
+        <td class="modify"><a href="modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $trackfarm_kintai_rec['date']; ?>"><img src="../img/modify2.png" alt="修正"></a></td>
       </tr>
       <?php } ?> 
       <tr>
-        <th scope="row"></th>
-        <td><b>合計<b></td>
-        <td><b>出勤日数<b></td>
-        <td><?php echo count($trackfarm_kintai_rec_list); ?></td>
+        <td>出勤日数</td>
+        <td><?php echo count($trackfarm_kintai_rec_list) . "日"; ?></td>
         <td></td>
         <td></td>
+        <td><strong>合計</strong></td>
         <td><?php echo $restTimeSumH .$restTimeSumM; ?></td>
         <td><?php echo $overTimeSumH .$overTimeSumM; ?></td>
         <td><?php echo $nightTimeSumH .$nightTimeSumM; ?></td>
         <td><?php echo $workingTimeSumH .$workingTimeSumM; ?></td>
+        <td></td>
       </tr>
 
       <!-- 10進法計算 -->
@@ -318,17 +320,17 @@
         $workingTimeSumM10 = "";
       }
       ?>
-      <tr>
-        <th scope="row"></th>
-        <td><b>合計(10進法)<b></td>
+      <tr class="sum">
         <td></td>
         <td></td>
         <td></td>
         <td></td>
+        <td><strong>合計(10進法)</strong></td>
         <td><?php echo $restTimeSumH . $restTimeSumM10; ?></td>
         <td><?php echo $overTimeSumH . $overTimeSumM10; ?></td>
         <td><?php echo $nightTimeSumH . $nightTimeSumM10; ?></td>
         <td><?php echo $workingTimeSumH . $workingTimeSumM10; ?></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
