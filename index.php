@@ -8,7 +8,7 @@
   <title>勤怠管理</title>
 </head>
 <body>
-  <div class="index">
+  <div id="index">
 
     <a href="home.php" class="return" role="button" aria-pressed="true"><img src="./img/return.png"></a>
 
@@ -151,7 +151,7 @@
       <?php } ?>
 
       <?php if (isset($trackfarm_kintai_rec['rest_time']) == true && isset($trackfarm_kintai_rec['return_time']) == false) { ?>
-      <a href="index.php?status=4&user_id=<?php echo $user_id; ?>" class="" role="button" aria-pressed="true" onClick="return checkReturn()"><span><img src="./img/retur.png" alt="戻り"></span></a>
+      <a href="index.php?status=4&user_id=<?php echo $user_id; ?>" class="" role="button" aria-pressed="true" onClick="return checkReturn()"><span><img src="./img/restreturn.png" alt="戻り"></span></a>
       <?php } ?>
 
       <?php if (isset($trackfarm_kintai_rec['id']) == true && $now_hour > 5) { ?>

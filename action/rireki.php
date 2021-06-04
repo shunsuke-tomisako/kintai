@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="../style.css">
   <title>勤怠管理</title>
 </head>
-<body class='rireki'>
+<body id='rireki'>
   <a href="../index.php?user_id=<?php echo $_GET["user_id"] ?>" class="return" role="button" aria-pressed="true"><img src="../img/return2.png"></a><br>
 
   <?php
@@ -281,7 +281,7 @@
         <td><?php echo $overTimeH .$overTimeM; ?></td>
         <td><?php echo $nightTimeH .$nightTimeM; ?></td>
         <td><?php echo $workingTimeH .$workingTimeM; ?></td>
-        <td class="modify"><a href="modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $trackfarm_kintai_rec['date']; ?>"><img src="../img/modify2.png" alt="修正"></a></td>
+        <td class="rirekimodify"><a href="modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $trackfarm_kintai_rec['date']; ?>"><img src="../img/modify2.png" alt="修正"></a></td>
       </tr>
       <?php } ?> 
       <tr>
@@ -289,7 +289,7 @@
         <td><?php echo count($trackfarm_kintai_rec_list) . "日"; ?></td>
         <td></td>
         <td></td>
-        <td><strong>合計</strong></td>
+        <td><strong class="strong">合計</strong></td>
         <td><?php echo $restTimeSumH .$restTimeSumM; ?></td>
         <td><?php echo $overTimeSumH .$overTimeSumM; ?></td>
         <td><?php echo $nightTimeSumH .$nightTimeSumM; ?></td>
@@ -325,7 +325,7 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><strong>合計(10進法)</strong></td>
+        <td><strong class="strong2">合計(10進法)</strong></td>
         <td><?php echo $restTimeSumH . $restTimeSumM10; ?></td>
         <td><?php echo $overTimeSumH . $overTimeSumM10; ?></td>
         <td><?php echo $nightTimeSumH . $nightTimeSumM10; ?></td>

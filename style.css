@@ -18,101 +18,107 @@ a {
   top: 3%;
   left: 5%;
 }
+.modify_afreturn {
+  position: absolute;
+  top: 3%;
+  left: 1%;
+}
 
-.return>img {
+.return>img, .modify_afreturn>img{
   width: 35%;
 }
 
 
 /* home.php */
-.home {
+#home {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 80%;
   margin: 20% auto 0;
 }
 
-.home .memberlist {
+#home .memberlist {
   text-align: center;
   flex-basis: 45%;
 }
 
-.home .company_name {
+#home .company_name {
   margin-bottom: 10%;
 }
 
-.home .company_name>img {
+#home .company_name>img {
   width: 40%;
 }
 
-.home .memberlist>.members {
+#home .memberlist>.members {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.home .memberlist>.members>.member {
+#home .memberlist>.members>.member {
   width: 47%;
   margin-bottom: 6%;
 }
 
-.home .memberlist>.members>.member a{
+#home .memberlist>.members>.member a{
   background-color: #364F6B;
   border-radius: 5px;
+  box-shadow: 5px 5px #49CECA;
   color: white;
   display: block;
-  padding: 20px 25px;
+  padding: 25px;
 }
 
 
-.home .addmember {
+#home .addmember {
   position: absolute;
   top: 3%;
   left: 87%;
 }
 
-.home .addmember>img {
+#home .addmember>img {
   width: 35%;
 }
 
 
 /* modify.php */
-.modify {
+#modify {
   display: flex;
   justify-content: space-between;
   width: 60%;
   margin: 18% auto 0;
 }
 
-.modify .memberlist {
+#modify .memberlist {
   text-align: center;
   flex-basis: 45%;
 }
 
-.modify .company_name {
+#modify .company_name {
   margin-bottom: 10%;
 }
 
-.modify .company_name>img {
+#modify .company_name>img {
   width: 50%;
 }
 
-.modify .delete {
+#modify .delete {
   position: absolute;
   top: 20%;
   right: 24%;
   width: 7%;
 }
 
-.modify .members {
+#modify .members {
   position: relative;
 }
 
-.modify .members p {
+#modify .members p {
   font-size: 125%;
 }
 
-.modify .members p:before {
+#modify .members p:before {
   margin: 0 5% 0 -15%;
   content: "";
   display: inline-block;
@@ -124,15 +130,16 @@ a {
   vertical-align: middle;
 }
 
-.modify .name {
+#modify .name {
   margin: 10% 0 5%;
   padding: 2%;
   width: 50%;
 }
 
-.modify .add {
+#modify .add {
   background-color: #364F6B;
   border-radius: 5px;
+  box-shadow: 3px 3px #49CECA;
   color: white;
   padding: 6px 0;
   width: 50%;
@@ -140,44 +147,52 @@ a {
   letter-spacing: 0.2rem;
 }
 
+.modifyerror {
+  text-align: center;
+  color: #364F6B;
+  margin-top: 5%;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
 
 /* index.php */
-.index .name {
+#index .name {
   text-align: center;
   color: #364F6B;
   margin-top: 18%;
   font-size: 1.3rem;
 }
-.index .name>strong {
+#index .name>strong {
   font-size: 3.0rem;
   font-weight: 400;
   margin-right: 1%;
 }
 
-.index #time {
+#index #time {
   text-align: center;
   color: #364F6B;
   font-size: 1.2rem;
   letter-spacing: 0.3px;
 }
 
-.index .action {
+#index .action {
   display: flex;
   flex-wrap: nowrap;
   width: 75%;
   margin: 3% auto 0;
   justify-content: center;
 }
-.index .action a{
+#index .action a{
   width: 25%;
 }
 
-.index .action img {
+#index .action img {
   max-width: 100%;
   padding: 8%;
 }
 
-.index .action span {
+#index .action span {
   display: block;
   height: 0;
   width: 100%;
@@ -186,7 +201,7 @@ a {
 
 
 /* rireki.php */
-.rireki {
+#rireki {
   background-image: url(./img/bgimg2.png);
   background-size: 100%;
   background-repeat: no-repeat;
@@ -194,72 +209,205 @@ a {
   margin: 0 auto;
 }
 
-.rireki .name {
+#rireki .name {
   color: white;
   font-size: 1.5rem;
 }
 
-.rireki .month {
+#rireki .month {
   color: white;
   font-size: 1.5rem;
   letter-spacing: 1.5px;
 }
 
-.rireki .wrap {
+#rireki .wrap {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
-  margin-top: 10%;
+  margin-top: 12%;
   margin-bottom: 3%;
 }
 
 
-.rireki .wrap select {
+#rireki .wrap select {
   background-color: #364F6B;
   color: white;
   border: 0.5px solid white;
   padding: 8% 33%;
 }
 
-.rireki .download {
+#rireki .download {
   position: absolute;
   top: 3%;
   left: 87%;
 }
 
-.rireki .download>img {
+#rireki .download>img {
   width: 35%;
 }
 
-.rireki table {
+#rireki table {
   color: white;
   width: 100%;
   margin: 0 auto;
   text-align: center;
   font-size: 0.7rem;
   border-collapse: collapse;
+
 }
 
-.rireki table .tr {
+#rireki table .tr {
   border-bottom: 1px solid white;
+  position: relative;
 }
 
-.rireki table .tr img {
+#rireki table .tr img {
   width: 36%;
 }
 
-.rireki table td {
+#rireki table td {
   padding: 1%;
 }
 
-.rireki table td strong {
+#rireki table td strong.strong{
+  border: 1px solid white;
+  border-radius: 10%;
+  padding: 1% 30%;
+  font-weight: 500;
+}
+
+#rireki table td strong.strong2{
   border: 1px solid white;
   border-radius: 10%;
   padding: 1% 15%;
   font-weight: 500;
 }
 
-.rireki table .modify {
+#rireki table .rirekimodify {
   position: absolute;
-  /* left: 10%; */
+  right: 1%;
+  margin: auto;
+}
+
+
+/* action */
+#action #time {
+  text-align: center;
+  color: #364F6B;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  margin-top: 24%;
+}
+
+#action .comment {
+  text-align: center;
+  color: #364F6B;
+  font-size: 2.0rem;
+  margin-top: 11%;
+  font-weight: bold;
+}
+
+#action .modifycomment {
+  text-align: center;
+  color: #364F6B;
+  font-size: 2.0rem;
+  margin-top: 30%;
+  font-weight: bold;
+}
+
+
+/* modify_be.php */
+#modify_be .name {
+  text-align: center;
+  color: #364F6B;
+  margin-top: 10%;
+  font-size: 1.3rem;
+}
+#modify_be .name>strong {
+  font-size: 3.0rem;
+  font-weight: 400;
+  margin-right: 1%;
+}
+
+#modify_be .modify {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+}
+
+#modify_be .modify .wrap {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin: 2% auto 2%;
+}
+
+#modify_be .modify .wrap .index{
+  color: #364F6B;
+  font-size: 1.4rem;
+  font-weight: bold;
+  background-color: #EFEFEF;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#modify_be .modify .wrap .time{
+  color: #364F6B;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1%;
+}
+
+#modify_be .modify .wrap .button{
+  width: 12%;
+  font-size: 1.3rem;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+#modify_be .modify .wrap .button a {
+  background-color: #364F6B;
+  border-radius: 5px;
+  box-shadow: 3px 3px #49CECA;
+  color: white;
+  display: block;
+  padding: 10px;
+}
+
+
+/* modify_af */
+#modify_af {
+  text-align: center;
+}
+
+#modify_af .comment{
+  text-align: center;
+  color: #364F6B;
+  font-size: 2.0rem;
+  margin-top: 20%;
+  font-weight: bold;
+}
+
+#modify_af .form {
+  /* width: 300px; */
+  width: 25%;
+  font-size: 1.5rem;
+  margin-top: 8%;
+  padding: 1%;
+  border: 2px solid #364F6B;
+  border-radius: 3%;
+}
+
+#modify_af .button {
+  background-color: #364F6B;
+  border-radius: 5px;
+  box-shadow: 3px 3px #49CECA;
+  color: white;
+  padding: 1%;
+  width: 15%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  margin-top: 5%;
 }

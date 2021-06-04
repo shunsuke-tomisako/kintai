@@ -45,7 +45,7 @@
     header("Location: home.php");
   }
   ?>
-  <div class="modify">
+  <div id="modify">
     <div class="memberlist">
       <div class="company_name">
         <img src="./img/levelzero.png" alt="levelzero">
@@ -93,11 +93,9 @@
     <a href="home.php" class="return" role="button" aria-pressed="true"><img src="./img/return.png"></a>
   </div>
 
-  <?php
-  if ($value == 2 && $_POST["name"] == "") {
-    echo "名前を入力して下さい。" . "<br>" . "<br>";
-  }
-  ?>
+  <?php if ($value == 2 && $_POST["name"] == "") { ?>
+  <div class="modifyerror">名前を入力して下さい。</div>
+  <?php } ?>
 
   <script>
   function checkSubmit() {

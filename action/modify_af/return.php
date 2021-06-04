@@ -3,21 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../style_index.css">
+  <link rel="stylesheet" href="../../style.css">
   <title>勤怠管理</title>
 </head>
-<body>
-  <header>
-    <h1>勤怠管理</h1>
-  </header>
-
-  <a href="../modify_be.php?user_id=<?php echo $_GET["user_id"] ?>&date=<?php echo $_GET["date"] ?>" class="btn btn-dark btn-lg active" role="button" aria-pressed="true" >修正の選択に戻る</a><br>
-  <?php if (isset($trackfarm_kintai_rec['finish_time']) == true) { ?>
-    <h3>休憩終了時間の修正を行います。<h3><br>
-  <?php } else { ?>
-    <h3>休憩終了時間の追加を行います。<h3><br>
-  <?php } ?>
+<body id="modify_af">
+  <a href="../modify_be.php?user_id=<?php echo $_GET["user_id"] ?>&date=<?php echo $_GET["date"] ?>" class="modify_afreturn" role="button" aria-pressed="true" ><img src="../../img/return.png"></a>
+  <div class="comment">休憩終了時間の変更を行います。<div>
 
   <?php
 
@@ -72,7 +63,7 @@
   ?>
 
   <form action="./return.php" method="get" onSubmit="return checkSubmit()">
-    <h3><input type="datetime-local" name="time" step="60" value="<?php echo str_replace(' ', 'T', $_GET["return_time"]); ?>"><h3><br>
+    <input type="datetime-local" name="time" step="60" value="<?php echo str_replace(' ', 'T', $_GET["return_time"]); ?>" class="form"><br>
     <input type="hidden" name="value" value="1">
     <input type="hidden" name="user_id" value="<?php echo $_GET["user_id"]; ?>">
     <input type="hidden" name="date" value="<?php echo $_GET["date"]; ?>">
@@ -80,7 +71,7 @@
     <input type="hidden" name="finish_time" value="<?php echo $_GET["finish_time"]; ?>">
     <input type="hidden" name="rest_time" value="<?php echo $_GET["rest_time"]; ?>">
     <input type="hidden" name="return_time" value="<?php echo $_GET["return_time"]; ?>">
-    <input type="submit" class="btn btn-light btn-lg active w-35" value="変更する">
+    <input type="submit" class="button" value="変更する">
   </form>
 
   <script>

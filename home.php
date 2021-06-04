@@ -24,7 +24,7 @@
   $stmt2->execute();
   $trackfarm_kintai_list2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
   ?>
-  <div class="home">
+  <div id="home">
     <div class="memberlist">
       <div class="company_name">
         <img src="./img/levelzero.png" alt="levelzero">
