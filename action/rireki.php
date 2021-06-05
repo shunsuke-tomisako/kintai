@@ -88,7 +88,7 @@
   </div>
   <a id="download" href="#" download="<?php echo $trackfarm_kintai_rec3["name"] . "_" . $month2; ?>.csv" onclick="handleDownload()" class="download"><img src="../img/download.png" alt="csvファイルダウンロード"></a>
 
-  <table>
+  <table id="table">
     <thead>
       <tr class="tr">
         <td>日付</td>
@@ -343,7 +343,7 @@
       let data_csv="";
 
       for (let i = 0; i < table.rows.length; i++) {
-        for (let j = 1; j < table.rows[i].cells.length; j++) {
+        for (let j = 0; j < table.rows[i].cells.length; j++) {
           data_csv += table.rows[i].cells[j].innerText;
           if (j == table.rows[i].cells.length-1) {
             data_csv += "\n";
