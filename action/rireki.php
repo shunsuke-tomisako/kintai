@@ -46,7 +46,7 @@
   $month3 = explode("-", $month2);
   $month4 = $month3[0] . "年" . $month3[1] . "月";
 
-  $sql = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date LIKE "'.$month.'"';
+  $sql = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date LIKE "'.$month.'" ORDER BY date';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
   $trackfarm_kintai_rec_list = $stmt->fetchAll(PDO::FETCH_ASSOC);

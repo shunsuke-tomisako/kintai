@@ -20,5 +20,10 @@
 
   <div class='comment'>出勤しました。本日も一日がんばりましょう！<div>
 
+  <script>
+    setTimeout(function() {
+      window.location.href = '../home.php';
+    }, 5*1000);
+  </script>
 </body>
 </html>

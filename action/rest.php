@@ -20,5 +20,10 @@
 
   <div class='comment'>休憩に入りました。<div>
 
+  <script>
+    setTimeout(function() {
+      window.location.href = '../home.php';
+    }, 5*1000);
+  </script>
 </body>
 </html>
