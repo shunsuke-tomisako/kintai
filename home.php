@@ -49,6 +49,7 @@
         <?php } ?>
       </div>
     </div>
+    <a href="clean_check.php" class="clean"><img src="./img/clean.png" alt="掃除チェック"></a>
     <a href="modify.php" class="addmember"><img src="./img/addmember.png"></a>
   </div>
 </body>

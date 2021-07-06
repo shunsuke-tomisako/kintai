@@ -81,6 +81,16 @@ a {
   width: 35%;
 }
 
+#home .clean {
+  position: absolute;
+  top: 3%;
+  left: 5%;
+}
+
+#home .clean>img {
+  width: 35%;
+}
+
 
 /* modify.php */
 #modify {
@@ -156,6 +166,182 @@ a {
 }
 
 
+/* clean_check.php */
+
+#clean_check .admin {
+  position: absolute;
+  top: 3%;
+  left: 87%;
+}
+
+#clean_check .admin>img {
+  width: 35%;
+}
+
+#clean_check .text {
+  text-align: center;
+  color: #364F6B;
+  margin-top: 13%;
+  font-size: 1.6rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+#clean_check .flex{
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin: 5% auto 0;
+}
+
+#clean_check .memberlist {
+  text-align: center;
+  flex-basis: 45%;
+}
+
+#clean_check .company_name {
+  margin-bottom: 10%;
+}
+
+#clean_check .company_name>img {
+  width: 50%;
+}
+
+#clean_check .check {
+  position: absolute;
+  top: 33%;
+  right: 24%;
+  width: 7%;
+}
+
+#clean_check .members {
+  position: relative;
+}
+
+#clean_check .members p {
+  font-size: 125%;
+}
+
+#clean_check .members p:before {
+  margin: 0 5% 0 -15%;
+  content: "";
+  display: inline-block;
+  width: 23px;
+  height: 25px;
+  background: url(./img/member.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+#clean_check .name {
+  margin: 10% 0 5%;
+  padding: 2%;
+  width: 50%;
+}
+
+#clean_check .submit {
+  display: block;
+  background-color: #364F6B;
+  border-radius: 5px;
+  box-shadow: 4px 4px #49CECA;
+  color: white;
+  padding: 13px 0;
+  width: 15%;
+  font-size: 0.8rem;
+  letter-spacing: 0.2rem;
+  margin: 4% auto;
+}
+
+
+/* clean_admin.php */
+
+#clean_admin .admin {
+  position: absolute;
+  top: 3%;
+  left: 87%;
+}
+
+#clean_admin .admin>img {
+  width: 35%;
+}
+
+#clean_admin .text {
+  text-align: center;
+  color: #364F6B;
+  margin-top: 13%;
+  font-size: 1.6rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+#clean_admin .flex{
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin: 5% auto 0;
+}
+
+#clean_admin .memberlist {
+  text-align: center;
+  flex-basis: 45%;
+}
+
+#clean_admin .company_name {
+  margin-bottom: 10%;
+}
+
+#clean_admin .company_name>img {
+  width: 50%;
+}
+
+#clean_admin .check {
+  position: absolute;
+  top: 33%;
+  right: 24%;
+  width: 7%;
+}
+
+#clean_admin .members {
+  position: relative;
+}
+
+#clean_admin .members p {
+  font-size: 125%;
+}
+
+#clean_admin .members p:before {
+  margin: 0 5% 0 -15%;
+  content: "";
+  display: inline-block;
+  width: 23px;
+  height: 25px;
+  background: url(./img/member.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+#clean_admin .name {
+  margin: 10% 0 5%;
+  padding: 2%;
+  width: 50%;
+}
+
+#clean_admin .submit {
+  display: block;
+  background-color: #364F6B;
+  border-radius: 5px;
+  box-shadow: 4px 4px #49CECA;
+  color: white;
+  padding: 13px 0;
+  width: 15%;
+  font-size: 0.8rem;
+  letter-spacing: 0.2rem;
+  margin: 4% auto;
+}
+
+
 /* index.php */
 #index .name {
   text-align: center;
@@ -202,9 +388,10 @@ a {
 
 /* rireki.php */
 #rireki {
-  background-image: url(./img/bgimg2.png);
-  background-size: 100%;
-  background-repeat: no-repeat;
+  background-image: none;
+  background-color: #364F6B;
+  /* background-size: 100%;
+  background-repeat: no-repeat; */
   width: 85%;
   margin: 0 auto;
 }
@@ -284,9 +471,7 @@ a {
 }
 
 #rireki table .rirekimodify {
-  position: absolute;
-  right: 1%;
-  margin: auto;
+  width: 8%;
 }
 
 
