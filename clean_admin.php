@@ -21,6 +21,11 @@
   $stmt->execute();
   $trackfarm_kintai_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+  $sql2 = 'SELECT name FROM clean';
+  $stmt2 = $dbh->prepare($sql2);
+  $stmt2->execute();
+  $trackfarm_kintai_list2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
   $value = "";
   if (isset($_POST["value"])) {
     $value = $_POST["value"];
@@ -70,6 +75,9 @@
           <td>①</td>
           <td>
             <select name="A1" id="">
+              <?php if (isset($trackfarm_kintai_list2[0]["name"]) == true) { ?>
+                <option value="<?php $trackfarm_kintai_list2[0]["name"] ?>"><?php echo $trackfarm_kintai_list2[0]["name"] ?></option>
+              <?php } ?>
               <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
@@ -77,6 +85,9 @@
           </td>
           <td>
             <select name="B1" id="">
+              <?php if (isset($trackfarm_kintai_list2[2]["name"]) == true) { ?>
+                <option value="<?php $trackfarm_kintai_list2[2]["name"] ?>"><?php echo $trackfarm_kintai_list2[2]["name"] ?></option>
+              <?php } ?>
               <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
@@ -84,6 +95,9 @@
           </td>
           <td>
             <select name="C1" id="">
+              <?php if (isset($trackfarm_kintai_list2[4]["name"]) == true) { ?>
+                <option value="<?php $trackfarm_kintai_list2[4]["name"] ?>"><?php echo $trackfarm_kintai_list2[4]["name"] ?></option>
+              <?php } ?>
               <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
@@ -91,6 +105,9 @@
           </td>
           <td>
             <select name="D1" id="">
+              <?php if (isset($trackfarm_kintai_list2[6]["name"]) == true) { ?>
+                <option value="<?php $trackfarm_kintai_list2[6]["name"] ?>"><?php echo $trackfarm_kintai_list2[6]["name"] ?></option>
+              <?php } ?>
               <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
@@ -101,6 +118,9 @@
           <td>②</td>
           <td>
             <select name="A2" id="">
+              <?php if (isset($trackfarm_kintai_list2[1]["name"]) == true) { ?>
+                <option value="<?php $trackfarm_kintai_list2[1]["name"] ?>"><?php echo $trackfarm_kintai_list2[1]["name"] ?></option>
+              <?php } ?>
               <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
@@ -108,6 +128,9 @@
           </td>
           <td>
             <select name="B2" id="">
+              <?php if (isset($trackfarm_kintai_list2[3]["name"]) == true) { ?>
+                <option value="<?php $trackfarm_kintai_list2[3]["name"] ?>"><?php echo $trackfarm_kintai_list2[3]["name"] ?></option>
+              <?php } ?>
               <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
@@ -115,6 +138,9 @@
           </td>
           <td>
             <select name="C2" id="">
+              <?php if (isset($trackfarm_kintai_list2[5]["name"]) == true) { ?>
+                <option value="<?php $trackfarm_kintai_list2[5]["name"] ?>"><?php echo $trackfarm_kintai_list2[5]["name"] ?></option>
+              <?php } ?>
               <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
@@ -122,6 +148,9 @@
           </td>
           <td>
             <select name="D2" id="">
+            <?php if (isset($trackfarm_kintai_list2[7]["name"]) == true) { ?>
+                <option value="<?php $trackfarm_kintai_list2[7]["name"] ?>"><?php echo $trackfarm_kintai_list2[7]["name"] ?></option>
+              <?php } ?>
               <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
