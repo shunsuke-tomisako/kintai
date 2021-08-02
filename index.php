@@ -111,6 +111,29 @@
   
       header("Location: action/rest.php");
     }
+
+
+    // 担当ペア取得
+    $basis_day = "2021/07/01";
+    $today = date("Y/m/d");
+    $differ_time = strtotime($today) - strtotime($basis_day);
+    $differ_day = $differ_time / (60 * 60 * 24);
+
+    if ($differ_day % 28 < 7) {
+      $cleaner_pair = "A";
+    } elseif (7 <= $differ_day % 28 && $differ_day % 28 < 14) {
+      $cleaner_pair = "B";
+    } elseif (14 <= $differ_day % 28 && $differ_day % 28 < 21) {
+      $cleaner_pair = "C";
+    } elseif (21 <= $differ_day % 28 && $differ_day % 28 < 28) {
+      $cleaner_pair = "D";
+    }
+
+    $sql4 = 'SELECT name FROM clean WHERE clean="'.$cleaner_pair . "1".'" OR clean="'.$cleaner_pair . "2".'"';
+    $stmt4 = $dbh->prepare($sql4);
+    $stmt4->execute();
+    $trackfarm_kintai_list4 = $stmt4->fetchAll(PDO::FETCH_ASSOC);
+
     ?>
 
     <div class="name"><strong><?php echo $trackfarm_kintai_rec3["name"] ?></strong>さん</div>
@@ -168,6 +191,13 @@
 
   <script>
   function checkShukkin() {
+    <?php if ($trackfarm_kintai_rec3["name"] == $trackfarm_kintai_list4[0]["name"] || $trackfarm_kintai_rec3["name"] == $trackfarm_kintai_list4[1]["name"]) {?>
+    if(window.confirm('今週の掃除担当です。')){
+      return window.confirm('出勤しますか？');
+    } else {
+      return false;
+    }
+    <?php } ?>
     if(window.confirm('出勤しますか？')){
       return true;
     } else {
@@ -176,6 +206,13 @@
     }
   }
   function checkTaikin() {
+    <?php if ($trackfarm_kintai_rec3["name"] == $trackfarm_kintai_list4[0]["name"] || $trackfarm_kintai_rec3["name"] == $trackfarm_kintai_list4[1]["name"]) {?>
+    if(window.confirm('掃除チェック表にチェックしましたか？')){
+      return window.confirm('退勤しますか？');
+    } else {
+      return false;
+    }
+    <?php } ?>
     if(window.confirm('退勤しますか？')){
       return true;
     } else {

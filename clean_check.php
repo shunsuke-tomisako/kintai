@@ -19,11 +19,11 @@
 
   if ($differ_day % 28 < 7) {
     $cleaner_pair = "A";
-  } elseif (7 <= $differ_day % 28 || $differ_day % 28 < 14) {
+  } elseif (7 <= $differ_day % 28 && $differ_day % 28 < 14) {
     $cleaner_pair = "B";
-  } elseif (14 <= $differ_day % 28 || $differ_day % 28 < 21) {
+  } elseif (14 <= $differ_day % 28 && $differ_day % 28 < 21) {
     $cleaner_pair = "C";
-  } elseif (21 <= $differ_day % 28 || $differ_day % 28 < 28) {
+  } elseif (21 <= $differ_day % 28 && $differ_day % 28 < 28) {
     $cleaner_pair = "D";
   }
 
@@ -68,7 +68,7 @@
   }
 
   if ($value == 1) {
-    echo $_POST["check"];
+    // echo $_POST["check"];
     // $sql = 'INSERT INTO users (company_name, name) VALUES("'.$_POST["company_name"].'", "'.$_POST["name"].'")';
     // $stmt = $dbh->prepare($sql);
     // $stmt->execute();
@@ -78,9 +78,9 @@
   <div id="clean_check">
     <div class="text">掃除チェック表<br><?php echo $Mon; ?>～<?php echo $Fri; ?>の担当は<?php echo $trackfarm_kintai_list[0]["name"]; ?>さんと<?php echo $trackfarm_kintai_list[1]["name"]; ?>さんです。</div>
 
-    <form action="./clean.php" method="post" onSubmit="return checkSubmit()">
+    <form id="check_form" action="./clean_check.php" method="post" onSubmit="return checkSubmit()">
 
-      <table>
+      <table id="check_table">
         <tr>
           <th></th>
           <th>Date</th>
@@ -201,7 +201,6 @@
       </table>
 
       <input type="hidden" name="value" value="1">
-      <input type="submit" value="登録する" class="submit">
     </form>
     <a href="home.php" class="return" role="button" aria-pressed="true"><img src="./img/return.png"></a>
     <a href="clean_admin.php" class="admin" role="button" aria-pressed="true"><img src="./img/admin.png" alt="担当管理"></a>
@@ -215,6 +214,10 @@
       return false;
     }
   }
+
+  // document.getElementById("check_table").addEventListener("change", function(e){
+  // document.forms.check_form.submit();
+  // });
   </script>
 
 </body>
