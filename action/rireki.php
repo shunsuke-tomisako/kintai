@@ -46,6 +46,16 @@
   $month3 = explode("-", $month2);
   $month4 = $month3[0] . "年" . $month3[1] . "月";
 
+  // 全日付取得
+  // $date = $month2;
+  // $begin = new DateTime(date('Y-m-d', strtotime('first day of '. $date)));
+  // $end = new Datetime(date('Y-m-d', strtotime('first day of next month '. $date)));
+  // $interval = new DateInterval('P1D');
+  // $daterange = new DatePeriod($begin, $interval, $end);
+  // foreach ($daterange as $date) {
+  //   echo $date->format("m-d") . "\n";
+  // }
+
   $sql = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date LIKE "'.$month.'" ORDER BY date';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
@@ -68,7 +78,7 @@
 
     <div class="name"><?php echo $trackfarm_kintai_rec3["name"] ?>さん</div>
     <div class="month"><?php echo $month4 ?></div>
-  
+
     <form action="./rireki.php" method="get">
       <select class="" aria-label=".form-select-sm example" name="month" onchange="submit(this.form)">
         <?php foreach ($trackfarm_kintai_rec_list2 as $trackfarm_kintai_rec2) {
@@ -92,10 +102,15 @@
     <thead>
       <tr class="tr">
         <td>日付</td>
+        <td>曜日</td>
         <td>出勤時間</td>
+        <td>(繰り上げ)</td>
         <td>退勤時間</td>
+        <td>(繰り下げ)</td>
         <td>休憩開始時間</td>
+        <td>(繰り下げ)</td>
         <td>休憩終了時間</td>
+        <td>(繰り上げ)</td>
         <td>休憩時間</td>
         <td>残業時間</td>
         <td>夜勤時間</td>
@@ -110,9 +125,37 @@
         $overTimeSum = 0;
         $nightTimeSum = 0;
 
+        // 繰り上げ計算
+        function upDatetime($timestamp, $margin_minutes){
+          $_year = date('Y', $timestamp);
+          $_month = date('m', $timestamp);
+          $_day = date('d', $timestamp);
+          $_hour = date('H', $timestamp);
+          $_minute = date('i', $timestamp);
+
+          if($_minute % $margin_minutes) $_minute += $margin_minutes - ($_minute % $margin_minutes);
+
+          return mktime($_hour, $_minute, 0, $_month, $_day, $_year);
+        }
+
+        // 繰り下げ計算
+        function downDatetime($timestamp, $margin_minutes){
+          $_year = date('Y', $timestamp);
+          $_month = date('m', $timestamp);
+          $_day = date('d', $timestamp);
+          $_hour = date('H', $timestamp);
+          $_minute = date('i', $timestamp);
+
+          if($_minute % $margin_minutes) $_minute -= ($_minute % $margin_minutes);
+
+          return mktime($_hour, $_minute, 0, $_month, $_day, $_year);
+        }
+
+
         foreach ($trackfarm_kintai_rec_list as $trackfarm_kintai_rec) {
+
           // 休憩時間計算
-          $restTime = strtotime($trackfarm_kintai_rec['return_time']) - strtotime($trackfarm_kintai_rec['rest_time']);
+          $restTime = strtotime(date('Y-m-d H:i:s', upDatetime(strtotime($trackfarm_kintai_rec['return_time']), 5))) - strtotime(date('Y-m-d H:i:s', downDatetime(strtotime($trackfarm_kintai_rec['rest_time']), 5)));
           if ($restTime > 0) {
             $restTimeh = floor($restTime / 3600);
             if ($restTimeh < 10) {
@@ -148,7 +191,7 @@
           }
 
           // 勤務時間計算
-          $workingTime = strtotime($trackfarm_kintai_rec['finish_time']) - strtotime($trackfarm_kintai_rec['begin_time']) - (strtotime($trackfarm_kintai_rec['return_time']) - strtotime($trackfarm_kintai_rec['rest_time']));
+          $workingTime = strtotime(date('Y-m-d H:i:s', downDatetime(strtotime($trackfarm_kintai_rec['finish_time']), 15))) - strtotime(date('Y-m-d H:i:s', upDatetime(strtotime($trackfarm_kintai_rec['begin_time']), 15))) - (strtotime(date('Y-m-d H:i:s', upDatetime(strtotime($trackfarm_kintai_rec['return_time']), 5))) - strtotime(date('Y-m-d H:i:s', downDatetime(strtotime($trackfarm_kintai_rec['rest_time']), 5))));
           if ($workingTime > 0) {
             $workingTimeh = floor($workingTime / 3600);
             if ($workingTimeh < 10) {
@@ -225,8 +268,8 @@
 
           // 夜勤時間計算
           //22時以降に休憩に入った場合も?
-          if (strtotime($trackfarm_kintai_rec['finish_time']) - strtotime($trackfarm_kintai_rec['date']) - 3600 * 22 > 0) {
-            $nightTime = strtotime($trackfarm_kintai_rec['finish_time']) - strtotime($trackfarm_kintai_rec['date']) - 3600 * 22;
+          if (strtotime(date('Y-m-d H:i:s', downDatetime(strtotime($trackfarm_kintai_rec['finish_time']), 15))) - strtotime($trackfarm_kintai_rec['date']) - 3600 * 22 > 0) {
+            $nightTime = strtotime(date('Y-m-d H:i:s', downDatetime(strtotime($trackfarm_kintai_rec['finish_time']), 15))) - strtotime($trackfarm_kintai_rec['date']) - 3600 * 22;
           } else {
             $nightTime = 0;
           }
@@ -265,31 +308,65 @@
             $nightTimeSumM = "";
           }
 
+          // 曜日取得
+          $date = date('w', strtotime(str_replace('-', '', $trackfarm_kintai_rec['date'])));
+          $week = [
+            '日', //0
+            '月', //1
+            '火', //2
+            '水', //3
+            '木', //4
+            '金', //5
+            '土', //6
+          ];
 
       ?>
       <tr class="tr">
         <td><?php echo mb_substr($trackfarm_kintai_rec['date'], 5, 6); ?></td>
+        <td><?php echo $week[$date]; ?></td>
         <td><?php echo mb_substr($trackfarm_kintai_rec['begin_time'], 10, 6); ?></td>
+        <td><?php echo date('H:i', upDatetime(strtotime($trackfarm_kintai_rec['begin_time']), 15)); ?></td>
         <?php if (isset($trackfarm_kintai_rec['finish_time']) == true && (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5) { ?>
           <td><?php echo (int)mb_substr($trackfarm_kintai_rec['finish_time'], 10, 3) + 24 .mb_substr($trackfarm_kintai_rec['finish_time'], 13, 3); ?></td>
         <?php } else { ?>
           <td><?php echo mb_substr($trackfarm_kintai_rec['finish_time'], 10, 6); ?></td>
         <?php } ?>
+        <?php if (isset($trackfarm_kintai_rec['finish_time']) == true && (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5) { ?>
+          <td><?php echo (int)mb_substr(date('Y-m-d H:i:s', downDatetime(strtotime($trackfarm_kintai_rec['finish_time']), 15)), 10, 3) + 24 .mb_substr(date('Y-m-d H:i:s', downDatetime(strtotime($trackfarm_kintai_rec['finish_time']), 15)), 13, 3); ?></td>
+        <?php } else { ?>
+          <td><?php echo date('H:i', downDatetime(strtotime($trackfarm_kintai_rec['finish_time']), 15)); ?></td>
+        <?php } ?>
         <td><?php echo mb_substr($trackfarm_kintai_rec['rest_time'], 10, 6); ?></td>
+        <?php if (isset($trackfarm_kintai_rec['rest_time']) == true) { ?>
+          <td><?php echo date('H:i', downDatetime(strtotime($trackfarm_kintai_rec['rest_time']), 5)); ?></td>
+        <?php } else { ?>
+          <td></td>
+        <?php } ?>
         <td><?php echo mb_substr($trackfarm_kintai_rec['return_time'], 10, 6); ?></td>
+        <?php if (isset($trackfarm_kintai_rec['rest_time']) == true) { ?>
+          <td><?php echo date('H:i', upDatetime(strtotime($trackfarm_kintai_rec['return_time']), 5)); ?></td>
+        <?php } else { ?>
+          <td></td>
+        <?php } ?>
         <td><?php echo $restTimeH .$restTimeM; ?></td>
         <td><?php echo $overTimeH .$overTimeM; ?></td>
         <td><?php echo $nightTimeH .$nightTimeM; ?></td>
         <td><?php echo $workingTimeH .$workingTimeM; ?></td>
         <td class="rirekimodify"><a href="modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $trackfarm_kintai_rec['date']; ?>"><img src="../img/modify2.png" alt="修正"></a></td>
       </tr>
-      <?php } ?> 
+      <?php } ?>
       <tr>
         <td>出勤日数</td>
         <td><?php echo count($trackfarm_kintai_rec_list) . "日"; ?></td>
         <td></td>
         <td></td>
-        <td><strong class="strong">合計</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <!-- <td><strong class="strong">合計</strong></td> -->
+        <td>合計</td>
         <td><?php echo $restTimeSumH .$restTimeSumM; ?></td>
         <td><?php echo $overTimeSumH .$overTimeSumM; ?></td>
         <td><?php echo $nightTimeSumH .$nightTimeSumM; ?></td>
@@ -325,7 +402,13 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><strong class="strong2">合計(10進法)</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <!-- <td><strong class="strong2">合計(10進法)</strong></td> -->
+        <td>合計(10進法)</td>
         <td><?php echo $restTimeSumH . $restTimeSumM10; ?></td>
         <td><?php echo $overTimeSumH . $overTimeSumM10; ?></td>
         <td><?php echo $nightTimeSumH . $nightTimeSumM10; ?></td>
@@ -340,7 +423,7 @@
     function handleDownload() {
       let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
       let table = document.getElementById('table');
-      let data_csv="";
+      let data_csv="<?php echo $trackfarm_kintai_rec3["name"] ?>, <?php echo $month4 ?>, \n";
 
       for (let i = 0; i < table.rows.length; i++) {
         for (let j = 0; j < table.rows[i].cells.length; j++) {
