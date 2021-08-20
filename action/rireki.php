@@ -325,7 +325,7 @@
         <td><?php echo mb_substr($trackfarm_kintai_rec['date'], 5, 6); ?></td>
         <td><?php echo $week[$date]; ?></td>
         <td><?php echo mb_substr($trackfarm_kintai_rec['begin_time'], 10, 6); ?></td>
-        <td><?php echo date('H:i', upDatetime(strtotime($trackfarm_kintai_rec['begin_time']), 15)); ?></td>
+        <td><?php if (isset($trackfarm_kintai_rec['begin_time']) == true) {echo date('H:i', upDatetime(strtotime($trackfarm_kintai_rec['begin_time']), 15));}; ?></td>
         <?php if (isset($trackfarm_kintai_rec['finish_time']) == true && (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5) { ?>
           <td><?php echo (int)mb_substr($trackfarm_kintai_rec['finish_time'], 10, 3) + 24 .mb_substr($trackfarm_kintai_rec['finish_time'], 13, 3); ?></td>
         <?php } else { ?>
@@ -333,8 +333,10 @@
         <?php } ?>
         <?php if (isset($trackfarm_kintai_rec['finish_time']) == true && (int)mb_substr($trackfarm_kintai_rec['finish_time'], 11 ,2) < 5) { ?>
           <td><?php echo (int)mb_substr(date('Y-m-d H:i:s', downDatetime(strtotime($trackfarm_kintai_rec['finish_time']), 15)), 10, 3) + 24 .mb_substr(date('Y-m-d H:i:s', downDatetime(strtotime($trackfarm_kintai_rec['finish_time']), 15)), 13, 3); ?></td>
-        <?php } else { ?>
+        <?php } else if (isset($trackfarm_kintai_rec['finish_time']) == true) { ?>
           <td><?php echo date('H:i', downDatetime(strtotime($trackfarm_kintai_rec['finish_time']), 15)); ?></td>
+        <?php } else { ?>
+          <td></td>
         <?php } ?>
         <td><?php echo mb_substr($trackfarm_kintai_rec['rest_time'], 10, 6); ?></td>
         <?php if (isset($trackfarm_kintai_rec['rest_time']) == true) { ?>
@@ -343,7 +345,7 @@
           <td></td>
         <?php } ?>
         <td><?php echo mb_substr($trackfarm_kintai_rec['return_time'], 10, 6); ?></td>
-        <?php if (isset($trackfarm_kintai_rec['rest_time']) == true) { ?>
+        <?php if (isset($trackfarm_kintai_rec['return_time']) == true) { ?>
           <td><?php echo date('H:i', upDatetime(strtotime($trackfarm_kintai_rec['return_time']), 5)); ?></td>
         <?php } else { ?>
           <td></td>
