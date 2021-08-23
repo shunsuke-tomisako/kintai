@@ -65,7 +65,11 @@
   ?>
 
   <form action="./rest.php" method="get" onSubmit="return checkSubmit()">
-    <input type="datetime-local" name="time" step="60" value="<?php echo str_replace(' ', 'T', $_GET["rest_time"]); ?>" class="form"><br>
+    <?php if ($_GET["rest_time"] == "") { ?>
+      <input type="datetime-local" name="time" step="60" value="<?php echo ($_GET["date"] . 'T' . 12 . ":" . 0 . 0); ?>" class="form"><br>
+    <?php } else { ?>
+      <input type="datetime-local" name="time" step="60" value="<?php echo str_replace(' ', 'T', $_GET["rest_time"]); ?>" class="form"><br>
+    <?php } ?>
     <input type="hidden" name="value" value="1">
     <input type="hidden" name="user_id" value="<?php echo $_GET["user_id"]; ?>">
     <input type="hidden" name="date" value="<?php echo $_GET["date"]; ?>">
@@ -82,7 +86,7 @@
       return true;
     } else {
       return false;
-      
+
     }
   }
   </script>

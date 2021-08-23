@@ -28,10 +28,6 @@
   $finish_time = $_GET["finish_time"];
   $rest_time = $_GET["rest_time"];
   $return_time = $_GET["return_time"];
-  if ($begin_time == "") {
-    header("Location: ../../home.php");
-    exit;
-  }
 
   $dsn = 'mysql:dbname=test;host=localhost;charset=utf8';
   $user = 'root';
@@ -68,7 +64,11 @@
   ?>
 
   <form action="./shukkin.php" method="get" onSubmit="return checkSubmit()">
-    <input type="datetime-local" name="time" step="60" value="<?php echo str_replace(' ', 'T', $_GET["begin_time"]); ?>" class="form"><br>
+    <?php if ($_GET["begin_time"] == "") { ?>
+      <input type="datetime-local" name="time" step="60" value="<?php echo ($_GET["date"] . 'T' . 10 . ":" . 0 . 0); ?>" class="form"><br>
+    <?php } else { ?>
+      <input type="datetime-local" name="time" step="60" value="<?php echo str_replace(' ', 'T', $_GET["begin_time"]); ?>" class="form"><br>
+    <?php } ?>
     <input type="hidden" name="value" value="1">
     <input type="hidden" name="user_id" value="<?php echo $_GET["user_id"]; ?>">
     <input type="hidden" name="date" value="<?php echo $_GET["date"]; ?>">

@@ -45,26 +45,32 @@
 
   <div class="modify">
     <div class="wrap">
-      <?php if (isset($trackfarm_kintai_rec['begin_time']) == true) { ?>
+      <?php if (isset($trackfarm_kintai_rec['id']) == true && isset($trackfarm_kintai_rec['begin_time']) == true) { ?>
       <div class="index">　出勤時間　</div>
       <div class="time">
-        <?php 
+        <?php
         $split = explode("-", mb_substr($trackfarm_kintai_rec['begin_time'], 5, 11));
         $split2 = explode(" ", $split[1]);
         echo $split[0] . "月" . $split2[0] . "日 " . $split2[1];
         ?>
       </div>
       <div class="button">
-        <a href="modify_af/shukkin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-danger btn-lg active w-35" role="button" aria-pressed="true">修正</a> 
+        <a href="modify_af/shukkin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-danger btn-lg active w-35" role="button" aria-pressed="true">修正</a>
+      </div>
+        <?php } else { ?>
+        <div class="index">　出勤時間　</div>
+        <div class="button">
+        <a href="modify_af/shukkin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-secondary btn-lg active w-35" role="button" aria-pressed="true">追加</a>
       </div>
         <?php } ?>
+
     </div>
 
     <div class="wrap">
       <?php if (isset($trackfarm_kintai_rec['finish_time']) == true) { ?>
       <div class="index">　退勤時間　</div>
       <div class="time">
-        <?php 
+        <?php
           $split = explode("-", mb_substr($trackfarm_kintai_rec['finish_time'], 5, 11));
           $split2 = explode(" ", $split[1]);
           echo $split[0] . "月" . $split2[0] . "日 " . $split2[1];
@@ -73,7 +79,7 @@
       <div class="button">
         <a href="modify_af/taikin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-secondary btn-lg active w-35" role="button" aria-pressed="true">修正</a>
       </div>
-      <?php } else { ?>
+      <?php } else if (isset($trackfarm_kintai_rec['begin_time'])) { ?>
       <div class="index">　退勤時間　</div>
       <div class="button">
         <a href="modify_af/taikin.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-secondary btn-lg active w-35" role="button" aria-pressed="true">追加</a>
@@ -86,7 +92,7 @@
       <?php if (isset($trackfarm_kintai_rec['rest_time']) == true) { ?>
       <div class="index">休憩開始時間</div>
       <div class="time">
-        <?php 
+        <?php
           $split = explode("-", mb_substr($trackfarm_kintai_rec['rest_time'], 5, 11));
           $split2 = explode(" ", $split[1]);
           echo $split[0] . "月" . $split2[0] . "日 " . $split2[1];
@@ -95,7 +101,7 @@
       <div class="button">
         <a href="modify_af/rest.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-success btn-lg active w-35" role="button" aria-pressed="true">修正</a>
       </div>
-      <?php } else {?>
+      <?php } else if (isset($trackfarm_kintai_rec['begin_time'])) {?>
       <div class="index">休憩開始時間</div>
       <div class="button">
         <a href="modify_af/rest.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>&begin_time=<?php echo $trackfarm_kintai_rec['begin_time']; ?>&finish_time=<?php echo $trackfarm_kintai_rec['finish_time']; ?>&rest_time=<?php echo $trackfarm_kintai_rec['rest_time']; ?>&return_time=<?php echo $trackfarm_kintai_rec['return_time']; ?>" class="btn btn-success btn-lg active w-35" role="button" aria-pressed="true">追加</a>
@@ -107,7 +113,7 @@
       <?php if (isset($trackfarm_kintai_rec['return_time']) == true) { ?>
       <div class="index">休憩終了時間</div>
       <div class="time">
-        <?php 
+        <?php
           $split = explode("-", mb_substr($trackfarm_kintai_rec['return_time'], 5, 11));
           $split2 = explode(" ", $split[1]);
           echo $split[0] . "月" . $split2[0] . "日 " . $split2[1];

@@ -72,6 +72,11 @@
   $stmt3->execute();
   $trackfarm_kintai_rec3 = $stmt3->fetch(PDO::FETCH_ASSOC);
 
+  // 出勤日のみ取得
+  $sql4 = 'SELECT * FROM trackfarm_kintai WHERE user_id="'.$user_id.'" AND date LIKE "'.$month.'" AND begin_time LIKE "%-%" ORDER BY date';
+  $stmt4 = $dbh->prepare($sql4);
+  $stmt4->execute();
+  $trackfarm_kintai_rec_list4 = $stmt4->fetchAll(PDO::FETCH_ASSOC);
   ?>
 
   <div class="wrap">
@@ -359,7 +364,7 @@
       <?php } ?>
       <tr>
         <td>出勤日数</td>
-        <td><?php echo count($trackfarm_kintai_rec_list) . "日"; ?></td>
+        <td><?php echo count($trackfarm_kintai_rec_list4) . "日"; ?></td>
         <td></td>
         <td></td>
         <td></td>

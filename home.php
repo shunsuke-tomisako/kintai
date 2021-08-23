@@ -23,6 +23,38 @@
   $stmt2 = $dbh->prepare($sql2);
   $stmt2->execute();
   $trackfarm_kintai_list2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+  // 出勤しているか確認
+  $today = date("Y-m-d");
+  // 当日以外を追加したいとき
+  // $today = date("Y-m-d",strtotime("-1 day"));
+
+  foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) {
+    $sql4 = 'SELECT user_id, date FROM trackfarm_kintai WHERE user_id="'.$trackfarm_kintai_rec['user_id'].'" AND date="'.$today.'"';
+    $stmt4 = $dbh->prepare($sql4);
+    $stmt4->execute();
+    $trackfarm_kintai_list4 = $stmt4->fetchAll(PDO::FETCH_ASSOC);
+    if (isset($trackfarm_kintai_list4[0]["date"]) == false) {
+      $sql5 = 'INSERT INTO trackfarm_kintai (user_id, date) VALUES ("'.$trackfarm_kintai_rec['user_id'].'", "'.$today.'")';
+      $stmt5 = $dbh->prepare($sql5);
+      $stmt5->execute();
+      // $trackfarm_kintai_list5 = $stmt5->fetchAll(PDO::FETCH_ASSOC);
+    }
+  }
+
+  foreach ($trackfarm_kintai_list2 as $trackfarm_kintai_rec2) {
+    $sql6 = 'SELECT user_id, date FROM trackfarm_kintai WHERE user_id="'.$trackfarm_kintai_rec2['user_id'].'" AND date="'.$today.'"';
+    $stmt6 = $dbh->prepare($sql6);
+    $stmt6->execute();
+    $trackfarm_kintai_list6 = $stmt6->fetchAll(PDO::FETCH_ASSOC);
+    if (isset($trackfarm_kintai_list6[0]["date"]) == false) {
+      $sql7 = 'INSERT INTO trackfarm_kintai (user_id, date) VALUES ("'.$trackfarm_kintai_rec2['user_id'].'", "'.$today.'")';
+      $stmt7 = $dbh->prepare($sql7);
+      $stmt7->execute();
+      // $trackfarm_kintai_list7 = $stmt7->fetchAll(PDO::FETCH_ASSOC);
+    }
+  }
+
   ?>
   <div id="home">
     <div class="memberlist">

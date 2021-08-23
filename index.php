@@ -157,7 +157,7 @@
 
     <div class="action">
 
-      <?php if (isset($trackfarm_kintai_rec['id']) == false && $now_hour > 5) { ?>
+      <?php if (isset($trackfarm_kintai_rec['begin_time']) == false && $now_hour > 5) { ?>
       <a href="index.php?status=1&user_id=<?php echo $user_id; ?>" class="" role="button" aria-pressed="true" onClick="return checkShukkin()"><span><img src="./img/begin.png" alt="出勤"></span></a>
       <?php } ?>
 
@@ -177,11 +177,11 @@
       <a href="index.php?status=4&user_id=<?php echo $user_id; ?>" class="" role="button" aria-pressed="true" onClick="return checkReturn()"><span><img src="./img/restreturn.png" alt="戻り"></span></a>
       <?php } ?>
 
-      <?php if (isset($trackfarm_kintai_rec['id']) == true && $now_hour > 5) { ?>
+      <?php if (isset($trackfarm_kintai_rec['begin_time']) == true && $now_hour > 5) { ?>
       <a href="action/modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $today; ?>" class="" role="button" aria-pressed="true"><span><img src="./img/modify.png" alt="修正"></span></a>
       <?php } ?>
 
-      <?php if (isset($trackfarm_kintai_rec2['id']) == true && $now_hour <= 5) { ?>
+      <?php if (isset($trackfarm_kintai_rec2['begin_time']) == true && $now_hour <= 5) { ?>
       <a href="action/modify_be.php?user_id=<?php echo $user_id; ?>&date=<?php echo $yesterday; ?>" class="" role="button" aria-pressed="true"><span><img src="./img/modify.png" alt="修正"></span></a>
       <?php } ?>
 
