@@ -57,9 +57,9 @@
     $stmt3->execute();
     $trackfarm_kintai_rec3 = $stmt3->fetch(PDO::FETCH_ASSOC);
 
-    if ($trackfarm_kintai_rec == false && $status == 1) {
+    if ($status == 1) {
   
-      $sql = 'INSERT INTO trackfarm_kintai (user_id, date, begin_time) VALUES("'.$user_id.'", "'.$today.'", "'.$now_datetime.'")';
+      $sql = 'UPDATE trackfarm_kintai SET begin_time = "'.$now_datetime.'" WHERE (user_id, date) = ("'.$user_id.'", "'.$today.'")';
       $stmt = $dbh->prepare($sql);
       $stmt->execute();
   
