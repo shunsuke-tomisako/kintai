@@ -56,25 +56,26 @@
     $sql = 'UPDATE clean SET name = "'.$_POST["D2"].'" WHERE (clean) = ("D2")';
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
+    $sql = 'UPDATE clean SET name = "'.$_POST["E1"].'" WHERE (clean) = ("E1")';
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $sql = 'UPDATE clean SET name = "'.$_POST["E2"].'" WHERE (clean) = ("E2")';
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
     header("Location: home.php");
   }
   ?>
-  <div id="clean_admin" color="black">
-    <div class="text">掃除当番登録</div>
+  <div id="clean_admin">
 
     <form action="./clean_admin.php" method="post" onSubmit="return checkSubmit()">
-      <table width='80%'>
-        <tr>
-          <th></th>
-          <th>A</th>
-          <th>B</th>
-          <th>C</th>
-          <th>D</th>
-        </tr>
-        <tr>
-          <td>①</td>
-          <td>
-            <select name="A1" id="">
+
+      <div class="team-member">
+
+        <div class="flex">
+  
+          <div class="team">
+            <div class="teamname">A チーム</div>
+            <select class="select" name="A1" id="">
               <?php if (isset($trackfarm_kintai_list2[0]["name"]) == true) { ?>
                 <option value="<?php echo $trackfarm_kintai_list2[0]["name"]; ?>"><?php echo $trackfarm_kintai_list2[0]["name"]; ?></option>
               <?php } ?>
@@ -82,42 +83,7 @@
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
             </select>
-          </td>
-          <td>
-            <select name="B1" id="">
-              <?php if (isset($trackfarm_kintai_list2[2]["name"]) == true) { ?>
-                <option value="<?php echo $trackfarm_kintai_list2[2]["name"]; ?>" selected><?php echo $trackfarm_kintai_list2[2]["name"]; ?></option>
-              <?php } ?>
-              <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
-                <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
-              <?php } ?>
-            </select>
-          </td>
-          <td>
-            <select name="C1" id="">
-              <?php if (isset($trackfarm_kintai_list2[4]["name"]) == true) { ?>
-                <option value="<?php echo $trackfarm_kintai_list2[4]["name"]; ?>"><?php echo $trackfarm_kintai_list2[4]["name"]; ?></option>
-              <?php } ?>
-              <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
-                <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
-              <?php } ?>
-            </select>
-          </td>
-          <td>
-            <select name="D1" id="">
-              <?php if (isset($trackfarm_kintai_list2[6]["name"]) == true) { ?>
-                <option value="<?php echo $trackfarm_kintai_list2[6]["name"]; ?>"><?php echo $trackfarm_kintai_list2[6]["name"]; ?></option>
-              <?php } ?>
-              <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
-                <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
-              <?php } ?>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>②</td>
-          <td>
-            <select name="A2" id="">
+            <select class="select" name="A2" id="">
               <?php if (isset($trackfarm_kintai_list2[1]["name"]) == true) { ?>
                 <option value="<?php echo $trackfarm_kintai_list2[1]["name"]; ?>"><?php echo $trackfarm_kintai_list2[1]["name"]; ?></option>
               <?php } ?>
@@ -125,9 +91,19 @@
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
             </select>
-          </td>
-          <td>
-            <select name="B2" id="">
+          </div>
+    
+          <div class="team">
+            <div class="teamname">B チーム</div>
+            <select class="select" name="B1" id="">
+              <?php if (isset($trackfarm_kintai_list2[2]["name"]) == true) { ?>
+                <option value="<?php echo $trackfarm_kintai_list2[2]["name"]; ?>" selected><?php echo $trackfarm_kintai_list2[2]["name"]; ?></option>
+              <?php } ?>
+              <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
+                <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
+              <?php } ?>
+            </select>
+            <select class="select" name="B2" id="">
               <?php if (isset($trackfarm_kintai_list2[3]["name"]) == true) { ?>
                 <option value="<?php echo $trackfarm_kintai_list2[3]["name"]; ?>"><?php echo $trackfarm_kintai_list2[3]["name"]; ?></option>
               <?php } ?>
@@ -135,9 +111,19 @@
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
             </select>
-          </td>
-          <td>
-            <select name="C2" id="">
+          </div>
+    
+          <div class="team">
+            <div class="teamname">C チーム</div>
+            <select class="select" name="C1" id="">
+              <?php if (isset($trackfarm_kintai_list2[4]["name"]) == true) { ?>
+                <option value="<?php echo $trackfarm_kintai_list2[4]["name"]; ?>"><?php echo $trackfarm_kintai_list2[4]["name"]; ?></option>
+              <?php } ?>
+              <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
+                <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
+              <?php } ?>
+            </select>
+            <select class="select" name="C2" id="">
               <?php if (isset($trackfarm_kintai_list2[5]["name"]) == true) { ?>
                 <option value="<?php echo $trackfarm_kintai_list2[5]["name"]; ?>"><?php echo $trackfarm_kintai_list2[5]["name"]; ?></option>
               <?php } ?>
@@ -145,19 +131,50 @@
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
             </select>
-          </td>
-          <td>
-            <select name="D2" id="">
-            <?php if (isset($trackfarm_kintai_list2[7]["name"]) == true) { ?>
+          </div>
+    
+          <div class="team">
+            <div class="teamname">D チーム</div>
+            <select class="select" name="D1" id="">
+              <?php if (isset($trackfarm_kintai_list2[6]["name"]) == true) { ?>
+                <option value="<?php echo $trackfarm_kintai_list2[6]["name"]; ?>"><?php echo $trackfarm_kintai_list2[6]["name"]; ?></option>
+              <?php } ?>
+              <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
+                <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
+              <?php } ?>
+            </select>
+            <select class="select" name="D2" id="">
+              <?php if (isset($trackfarm_kintai_list2[7]["name"]) == true) { ?>
                 <option value="<?php echo $trackfarm_kintai_list2[7]["name"]; ?>"><?php echo $trackfarm_kintai_list2[7]["name"]; ?></option>
               <?php } ?>
               <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
                 <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
               <?php } ?>
             </select>
-          </td>
-        </tr>
-      </table>
+          </div>
+    
+          <div class="team">
+            <div class="teamname">E チーム</div>
+            <select class="select" name="E1" id="">
+              <?php if (isset($trackfarm_kintai_list2[8]["name"]) == true) { ?>
+                <option value="<?php echo $trackfarm_kintai_list2[8]["name"]; ?>"><?php echo $trackfarm_kintai_list2[8]["name"]; ?></option>
+              <?php } ?>
+              <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
+                <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
+              <?php } ?>
+            </select>
+            <select class="select" name="E2" id="">
+              <?php if (isset($trackfarm_kintai_list2[9]["name"]) == true) { ?>
+                <option value="<?php echo $trackfarm_kintai_list2[9]["name"]; ?>"><?php echo $trackfarm_kintai_list2[9]["name"]; ?></option>
+              <?php } ?>
+              <?php foreach ($trackfarm_kintai_list as $trackfarm_kintai_rec) { ?>
+                <option value="<?php echo $trackfarm_kintai_rec["name"]; ?>"><?php echo $trackfarm_kintai_rec["name"]; ?></option>
+              <?php } ?>
+            </select>
+          </div>
+  
+        </div>
+      </div>
 
       <input type="hidden" name="value" value="1">
       <input type="submit" value="登録する" class="submit">

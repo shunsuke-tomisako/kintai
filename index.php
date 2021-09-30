@@ -114,19 +114,21 @@
 
 
     // 担当ペア取得
-    $basis_day = "2021/07/01";
+    $basis_day = "2021/09/12";
     $today = date("Y/m/d");
     $differ_time = strtotime($today) - strtotime($basis_day);
     $differ_day = $differ_time / (60 * 60 * 24);
 
-    if ($differ_day % 28 < 7) {
+    if ($differ_day % 35 < 7) {
       $cleaner_pair = "A";
-    } elseif (7 <= $differ_day % 28 && $differ_day % 28 < 14) {
+    } elseif (7 <= $differ_day % 35 && $differ_day % 35 < 14) {
       $cleaner_pair = "B";
-    } elseif (14 <= $differ_day % 28 && $differ_day % 28 < 21) {
+    } elseif (14 <= $differ_day % 35 && $differ_day % 35 < 21) {
       $cleaner_pair = "C";
-    } elseif (21 <= $differ_day % 28 && $differ_day % 28 < 28) {
+    } elseif (21 <= $differ_day % 35 && $differ_day % 35 < 28) {
       $cleaner_pair = "D";
+    } elseif (28 <= $differ_day % 35 && $differ_day % 35 < 35) {
+      $cleaner_pair = "E";
     }
 
     $sql4 = 'SELECT name FROM clean WHERE clean="'.$cleaner_pair . "1".'" OR clean="'.$cleaner_pair . "2".'"';
@@ -206,8 +208,8 @@
     }
   }
   function checkTaikin() {
-    <?php if ($trackfarm_kintai_rec3["name"] == $trackfarm_kintai_list4[0]["name"] || $trackfarm_kintai_rec3["name"] == $trackfarm_kintai_list4[1]["name"]) {?>
-    if(window.confirm('掃除チェック表にチェックしましたか？')){
+    <?php if (($trackfarm_kintai_rec3["name"] == $trackfarm_kintai_list4[0]["name"] && (date('w') == '2' || date('w') == '5')) || ($trackfarm_kintai_rec3["name"] == $trackfarm_kintai_list4[1]["name"] && (date('w') == '2' || date('w') == '5'))) {?>
+    if(window.confirm('ゴミ捨てはしましたか？')){
       return window.confirm('退勤しますか？');
     } else {
       return false;

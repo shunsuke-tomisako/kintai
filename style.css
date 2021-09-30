@@ -166,182 +166,6 @@ a {
 }
 
 
-/* clean_check.php */
-
-#clean_check .admin {
-  position: absolute;
-  top: 3%;
-  left: 87%;
-}
-
-#clean_check .admin>img {
-  width: 35%;
-}
-
-#clean_check .text {
-  text-align: center;
-  color: #364F6B;
-  margin-top: 13%;
-  font-size: 1.6rem;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-#clean_check .flex{
-  display: flex;
-  justify-content: space-between;
-  width: 60%;
-  margin: 5% auto 0;
-}
-
-#clean_check .memberlist {
-  text-align: center;
-  flex-basis: 45%;
-}
-
-#clean_check .company_name {
-  margin-bottom: 10%;
-}
-
-#clean_check .company_name>img {
-  width: 50%;
-}
-
-#clean_check .check {
-  position: absolute;
-  top: 33%;
-  right: 24%;
-  width: 7%;
-}
-
-#clean_check .members {
-  position: relative;
-}
-
-#clean_check .members p {
-  font-size: 125%;
-}
-
-#clean_check .members p:before {
-  margin: 0 5% 0 -15%;
-  content: "";
-  display: inline-block;
-  width: 23px;
-  height: 25px;
-  background: url(./img/member.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  vertical-align: middle;
-}
-
-#clean_check .name {
-  margin: 10% 0 5%;
-  padding: 2%;
-  width: 50%;
-}
-
-#clean_check .submit {
-  display: block;
-  background-color: #364F6B;
-  border-radius: 5px;
-  box-shadow: 4px 4px #49CECA;
-  color: white;
-  padding: 13px 0;
-  width: 15%;
-  font-size: 0.8rem;
-  letter-spacing: 0.2rem;
-  margin: 4% auto;
-}
-
-
-/* clean_admin.php */
-
-#clean_admin .admin {
-  position: absolute;
-  top: 3%;
-  left: 87%;
-}
-
-#clean_admin .admin>img {
-  width: 35%;
-}
-
-#clean_admin .text {
-  text-align: center;
-  color: #364F6B;
-  margin-top: 13%;
-  font-size: 1.6rem;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-#clean_admin .flex{
-  display: flex;
-  justify-content: space-between;
-  width: 60%;
-  margin: 5% auto 0;
-}
-
-#clean_admin .memberlist {
-  text-align: center;
-  flex-basis: 45%;
-}
-
-#clean_admin .company_name {
-  margin-bottom: 10%;
-}
-
-#clean_admin .company_name>img {
-  width: 50%;
-}
-
-#clean_admin .check {
-  position: absolute;
-  top: 33%;
-  right: 24%;
-  width: 7%;
-}
-
-#clean_admin .members {
-  position: relative;
-}
-
-#clean_admin .members p {
-  font-size: 125%;
-}
-
-#clean_admin .members p:before {
-  margin: 0 5% 0 -15%;
-  content: "";
-  display: inline-block;
-  width: 23px;
-  height: 25px;
-  background: url(./img/member.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  vertical-align: middle;
-}
-
-#clean_admin .name {
-  margin: 10% 0 5%;
-  padding: 2%;
-  width: 50%;
-}
-
-#clean_admin .submit {
-  display: block;
-  background-color: #364F6B;
-  border-radius: 5px;
-  box-shadow: 4px 4px #49CECA;
-  color: white;
-  padding: 13px 0;
-  width: 15%;
-  font-size: 0.8rem;
-  letter-spacing: 0.2rem;
-  margin: 4% auto;
-}
-
-
 /* index.php */
 #index .name {
   text-align: center;
@@ -595,4 +419,194 @@ a {
   font-weight: bold;
   letter-spacing: 0.2rem;
   margin-top: 5%;
+}
+
+
+/* clean_check */
+#clean_check {
+  background-image: none;
+  background-color: #364F6B;
+}
+
+#clean_check .admin {
+  position: absolute;
+  top: 3%;
+  left: 87%;
+}
+
+#clean_check .admin>img {
+  width: 35%;
+}
+
+#check_table {
+  margin: 10% auto 8%;
+  width: 75%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#check_table tr th, #check_table tr td {
+  border: 1px solid white;
+  color: white;
+  padding: 0.8% 0;
+  font-size: 0.8rem;
+}
+
+#check_table tr th {
+  padding: 1.5% 1%;
+}
+
+#check_table .border-none {
+  border-style: none;
+}
+
+#check_table .diagonal-line {
+  background-image: linear-gradient(to top left, transparent, transparent 49%, white 49%, white 51%, transparent 51%, transparent);
+}
+
+#check_table th.border-right {
+  border-right-color: #364F6B;
+}
+
+#check_table .border-bottom {
+  border-bottom: 1px solid #364F6B;
+}
+#check_table .color-change {
+  background-color: white;
+  color: #364F6B;
+}
+
+#check_table td.room {
+  writing-mode: vertical-rl;
+  width: 2%;
+  font-weight: 600;
+}
+
+#check_table td.place {
+  width: 9%;
+}
+
+#check_table span {
+  background-color: #364F6B;
+  color: white;
+  border-radius: 5%;
+  padding: 0 10%;
+  margin-right: 5%;
+  font-weight: 400;
+}
+
+/* 元々のチェックボックス（非表示） */
+#check_table input[type="checkbox"]{
+  display: none;
+}
+
+/* チェックボックスの代わりを成すラベル */
+#check_table input[type="checkbox"]+label{
+  display: none;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  padding-right: 10px;
+}
+
+/* ラベルの左に表示させる正方形のボックス□ */
+#check_table input[type="checkbox"]+label::before{
+  content: "";
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  margin-top: -15px;
+  left: 7px;
+  top: 50%;
+  border: 1px solid;
+  border-color:  #364F6B; /* 枠の色変更 */
+  background-color: #FFF; /* 背景の色変更 */
+  border-radius: 50%;
+}
+
+/* チェックが入った時のレ点 */
+#check_table input[type="checkbox"]:checked+label::after{
+  content: "";
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  width: 14px;
+  height: 8px;
+  margin-top: -11px;
+  top: 50%;
+  left: 10px;
+  transform: rotate(-45deg);
+  border-bottom: 3px solid;
+  border-left: 3px solid;
+  border-color:  #364F6B; /* チェックの色変更 */
+}
+
+
+/* clean_admin.php */
+
+#clean_admin .team-member {
+  margin: 15% auto 0;
+  width: 60%;
+}
+
+#clean_admin .flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+#clean_admin .team {
+  width: 30%;
+  margin-right: 5%;
+  margin-bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#clean_admin .team:nth-child(3n) {
+  margin-right: 0;
+}
+
+#clean_admin .teamname {
+  color: #364F6B;
+  font-weight: 600;
+  position: relative;
+  padding-right: 20%;
+  margin-bottom: 3%;
+}
+
+#clean_admin .teamname::after {
+  content: url(./img/members.png);
+  display: inline-block;
+  vertical-align: middle;
+  transform: scale(0.3);
+  position: absolute;
+  top: -95%;
+  left: 40%;
+}
+
+#clean_admin .select {
+  color: #364F6B;
+  width: 70%;
+  margin: 0 auto;
+  text-align: -webkit-center;
+  font-size: 1.5rem;
+  margin-bottom: 3%;
+}
+
+#clean_admin .submit {
+  display: block;
+  background-color: #364F6B;
+  border-radius: 5px;
+  box-shadow: 4px 4px #49CECA;
+  color: white;
+  padding: 13px 0;
+  width: 15%;
+  font-size: 0.8rem;
+  letter-spacing: 0.2rem;
+  margin: 2% auto;
 }
