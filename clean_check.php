@@ -2036,8 +2036,8 @@
       </td>
     </tr>
     <tr>
-      <td rowspan="4" class="color-change room">その他</td>
-      <td class="place">机</td>
+      <td rowspan="3" class="color-change room">その他</td>
+      <td class="place">トイレ</td>
       <td id="check_table131">
         <form id="check_form131" action="./clean_check.php" method="post">
           <input type="checkbox" id="form131" name="date_place131" value="<?php echo date("Y-m-d",strtotime("-7 day", strtotime($first_day))); ?>_14"
@@ -2180,7 +2180,7 @@
       </td>
     </tr>
     <tr>
-      <td class="place">トイレ</td>
+      <td class="place">廊下</td>
       <td id="check_table141">
         <form id="check_form141" action="./clean_check.php" method="post">
           <input type="checkbox" id="form141" name="date_place141" value="<?php echo date("Y-m-d",strtotime("-7 day", strtotime($first_day))); ?>_15"
@@ -2323,7 +2323,7 @@
       </td>
     </tr>
     <tr>
-      <td class="place">廊下</td>
+      <td class="place">階段</td>
       <td id="check_table151">
         <form id="check_form151" action="./clean_check.php" method="post">
           <input type="checkbox" id="form151" name="date_place151" value="<?php echo date("Y-m-d",strtotime("-7 day", strtotime($first_day))); ?>_16"
@@ -2466,149 +2466,6 @@
       </td>
     </tr>
     <tr>
-      <td class="place">階段</td>
-      <td id="check_table161">
-        <form id="check_form161" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form161" name="date_place161" value="<?php echo date("Y-m-d",strtotime("-7 day", strtotime($first_day))); ?>_17"
-            <?php
-              $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("-7 day", strtotime($first_day))).'" AND place="17"';
-              $stmt3 = $dbh->prepare($sql3);
-              $stmt3->execute();
-              $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-              if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
-            ?>
-          ><label for="form161">
-          <input type="hidden" name="value" value="161">
-        </form>
-      </td>
-      <td id="check_table162">
-        <form id="check_form162" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form162" name="date_place162" value="<?php echo date("Y-m-d",strtotime("-6 day", strtotime($first_day))); ?>_17"
-            <?php
-              $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("-6 day", strtotime($first_day))).'" AND place="17"';
-              $stmt3 = $dbh->prepare($sql3);
-              $stmt3->execute();
-              $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-              if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
-            ?>
-          ><label for="form162">
-          <input type="hidden" name="value" value="162">
-        </form>
-      </td>
-      <td id="check_table163">
-        <form id="check_form163" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form163" name="date_place163" value="<?php echo date("Y-m-d",strtotime("-5 day", strtotime($first_day))); ?>_17"
-            <?php
-              $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("-5 day", strtotime($first_day))).'" AND place="17"';
-              $stmt3 = $dbh->prepare($sql3);
-              $stmt3->execute();
-              $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-              if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
-            ?>
-          ><label for="form163">
-          <input type="hidden" name="value" value="163">
-        </form>
-      </td>
-      <td id="check_table164">
-        <form id="check_form164" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form164" name="date_place164" value="<?php echo date("Y-m-d",strtotime("-4 day", strtotime($first_day))); ?>_17"
-            <?php
-              $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("-4 day", strtotime($first_day))).'" AND place="17"';
-              $stmt3 = $dbh->prepare($sql3);
-              $stmt3->execute();
-              $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-              if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
-            ?>
-          ><label for="form164">
-          <input type="hidden" name="value" value="164">
-        </form>
-      </td>
-      <td id="check_table165">
-        <form id="check_form165" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form165" name="date_place165" value="<?php echo date("Y-m-d",strtotime("-3 day", strtotime($first_day))); ?>_17"
-            <?php
-              $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("-3 day", strtotime($first_day))).'" AND place="17"';
-              $stmt3 = $dbh->prepare($sql3);
-              $stmt3->execute();
-              $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-              if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
-            ?>
-          ><label for="form165">
-          <input type="hidden" name="value" value="165">
-        </form>
-      </td>
-      <td id="check_table166">
-        <form id="check_form166" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form166" name="date_place166" value="<?php echo $first_day; ?>_17"
-            <?php
-              $sql3 = 'SELECT * from clean_check where date="'.$first_day.'" AND place="17"';
-              $stmt3 = $dbh->prepare($sql3);
-              $stmt3->execute();
-              $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-              if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
-            ?>
-          ><label for="form166">
-          <input type="hidden" name="value" value="166">
-        </form>
-      </td>
-      <td id="check_table167">
-        <form id="check_form167" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form167" name="date_place167" value="<?php echo date("Y-m-d",strtotime("+1 day", strtotime($first_day))); ?>_17"
-            <?php
-              $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("+1 day", strtotime($first_day))).'" AND place="17"';
-              $stmt3 = $dbh->prepare($sql3);
-              $stmt3->execute();
-              $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-              if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
-            ?>
-          ><label for="form167">
-          <input type="hidden" name="value" value="167">
-        </form>
-      </td>
-      <td id="check_table168">
-        <form id="check_form168" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form168" name="date_place168" value="<?php echo date("Y-m-d",strtotime("+2 day", strtotime($first_day))); ?>_17"
-            <?php
-              $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("+2 day", strtotime($first_day))).'" AND place="17"';
-              $stmt3 = $dbh->prepare($sql3);
-              $stmt3->execute();
-              $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-              if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
-            ?>
-          ><label for="form168">
-          <input type="hidden" name="value" value="168">
-        </form>
-      </td>
-      <td id="check_table169">
-        <form id="check_form169" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form169" name="date_place169" value="<?php echo date("Y-m-d",strtotime("+3 day", strtotime($first_day))); ?>_17"
-            <?php
-              $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("+3 day", strtotime($first_day))).'" AND place="17"';
-              $stmt3 = $dbh->prepare($sql3);
-              $stmt3->execute();
-              $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-              if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
-            ?>
-          ><label for="form169">
-          <input type="hidden" name="value" value="169">
-        </form>
-      </td>
-      <td id="check_table170">
-        <form id="check_form170" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form170" name="date_place170" value="<?php echo date("Y-m-d",strtotime("+4 day", strtotime($first_day))); ?>_17"
-            <?php
-              $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("+4 day", strtotime($first_day))).'" AND place="17"';
-              $stmt3 = $dbh->prepare($sql3);
-              $stmt3->execute();
-              $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
-              if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
-            ?>
-          ><label for="form170">
-          <input type="hidden" name="value" value="170">
-        </form>
-      </td>
-    </tr>
-    <tr>
       <td class="border-none">　</td>
       <td class="border-none"></td>
       <td class="border-none"></td>
@@ -2626,9 +2483,9 @@
       <td class="border-none"></td>
       <td class="color-change place">ゴミ</td>
       <td class="diagonal-line"></td>
-      <td id="check_table171">
-        <form id="check_form171" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form171" name="date_place171" value="<?php echo date("Y-m-d",strtotime("-6 day", strtotime($first_day))); ?>_18"
+      <td id="check_table161">
+        <form id="check_form161" action="./clean_check.php" method="post">
+          <input type="checkbox" id="form161" name="date_place161" value="<?php echo date("Y-m-d",strtotime("-6 day", strtotime($first_day))); ?>_18"
             <?php
               $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("-6 day", strtotime($first_day))).'" AND place="18"';
               $stmt3 = $dbh->prepare($sql3);
@@ -2636,15 +2493,15 @@
               $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
               if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
             ?>
-          ><label for="form171">
-          <input type="hidden" name="value" value="171">
+          ><label for="form161">
+          <input type="hidden" name="value" value="161">
         </form>
       </td>
       <td class="diagonal-line"></td>
       <td class="diagonal-line"></td>
-      <td id="check_table172">
-        <form id="check_form172" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form172" name="date_place172" value="<?php echo date("Y-m-d",strtotime("-3 day", strtotime($first_day))); ?>_18"
+      <td id="check_table162">
+        <form id="check_form162" action="./clean_check.php" method="post">
+          <input type="checkbox" id="form162" name="date_place162" value="<?php echo date("Y-m-d",strtotime("-3 day", strtotime($first_day))); ?>_18"
             <?php
               $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("-3 day", strtotime($first_day))).'" AND place="18"';
               $stmt3 = $dbh->prepare($sql3);
@@ -2652,14 +2509,14 @@
               $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
               if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
             ?>
-          ><label for="form172">
-          <input type="hidden" name="value" value="172">
+          ><label for="form162">
+          <input type="hidden" name="value" value="162">
         </form>
       </td>
       <td class="diagonal-line"></td>
-      <td id="check_table173">
-        <form id="check_form173" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form173" name="date_place173" value="<?php echo date("Y-m-d",strtotime("+1 day", strtotime($first_day))); ?>_18"
+      <td id="check_table163">
+        <form id="check_form163" action="./clean_check.php" method="post">
+          <input type="checkbox" id="form163" name="date_place163" value="<?php echo date("Y-m-d",strtotime("+1 day", strtotime($first_day))); ?>_18"
             <?php
               $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("+1 day", strtotime($first_day))).'" AND place="18"';
               $stmt3 = $dbh->prepare($sql3);
@@ -2667,15 +2524,15 @@
               $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
               if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
             ?>
-          ><label for="form173">
-          <input type="hidden" name="value" value="173">
+          ><label for="form163">
+          <input type="hidden" name="value" value="163">
         </form>
       </td>
       <td class="diagonal-line"></td>
       <td class="diagonal-line"></td>
-      <td id="check_table174">
-        <form id="check_form174" action="./clean_check.php" method="post">
-          <input type="checkbox" id="form174" name="date_place174" value="<?php echo date("Y-m-d",strtotime("+4 day", strtotime($first_day))); ?>_18"
+      <td id="check_table164">
+        <form id="check_form164" action="./clean_check.php" method="post">
+          <input type="checkbox" id="form164" name="date_place164" value="<?php echo date("Y-m-d",strtotime("+4 day", strtotime($first_day))); ?>_18"
             <?php
               $sql3 = 'SELECT * from clean_check where date="'.date("Y-m-d",strtotime("+4 day", strtotime($first_day))).'" AND place="18"';
               $stmt3 = $dbh->prepare($sql3);
@@ -2683,8 +2540,8 @@
               $trackfarm_kintai_list3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
               if (count($trackfarm_kintai_list3) == 1) {echo "checked";}
             ?>
-          ><label for="form174">
-          <input type="hidden" name="value" value="174">
+          ><label for="form164">
+          <input type="hidden" name="value" value="164">
         </form>
       </td>
     </tr>
@@ -3197,36 +3054,6 @@
   });
   document.getElementById("check_table164").addEventListener("change", function(e){
     document.forms.check_form164.submit();
-  });
-  document.getElementById("check_table165").addEventListener("change", function(e){
-    document.forms.check_form165.submit();
-  });
-  document.getElementById("check_table166").addEventListener("change", function(e){
-    document.forms.check_form166.submit();
-  });
-  document.getElementById("check_table167").addEventListener("change", function(e){
-    document.forms.check_form167.submit();
-  });
-  document.getElementById("check_table168").addEventListener("change", function(e){
-    document.forms.check_form168.submit();
-  });
-  document.getElementById("check_table169").addEventListener("change", function(e){
-    document.forms.check_form169.submit();
-  });
-  document.getElementById("check_table170").addEventListener("change", function(e){
-    document.forms.check_form170.submit();
-  });
-  document.getElementById("check_table171").addEventListener("change", function(e){
-    document.forms.check_form171.submit();
-  });
-  document.getElementById("check_table172").addEventListener("change", function(e){
-    document.forms.check_form172.submit();
-  });
-  document.getElementById("check_table173").addEventListener("change", function(e){
-    document.forms.check_form173.submit();
-  });
-  document.getElementById("check_table174").addEventListener("change", function(e){
-    document.forms.check_form174.submit();
   });
 
   </script>
