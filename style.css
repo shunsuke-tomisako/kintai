@@ -368,7 +368,8 @@ a {
 }
 
 #modify_be .modify .wrap .button{
-  width: 12%;
+  width: 130px;
+  /* width: 12%; */
   font-size: 1.3rem;
   text-align: center;
   font-weight: bold;
@@ -382,6 +383,30 @@ a {
   color: white;
   display: block;
   padding: 10px;
+}
+
+#modify_be .modify .flex-comment {
+  margin-top: -2%;
+}
+
+#modify_be .modify .comment {
+  display: flex;
+}
+
+#modify_be .modify .content {
+  margin-right: 100px;
+}
+
+#modify_be .modify .comment_button {
+  background-color: #364F6B;
+  border-radius: 5px;
+  box-shadow: 3px 3px #49CECA;
+  color: white;
+  display: block;
+  padding: 10px 38px;
+  font-size: 1.3rem;
+  letter-spacing: 5px;
+  font-weight: bold;
 }
 
 

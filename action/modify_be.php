@@ -39,6 +39,20 @@
   $stmt2 = $dbh->prepare($sql2);
   $stmt2->execute();
   $trackfarm_kintai_rec2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+  $value = "";
+  if (isset($_GET["value"])) {
+    $value = $_GET["value"];
+  }
+
+  if ($value == 1) {
+    $sql3 = 'UPDATE trackfarm_kintai SET comment = "'.$_GET['comment'].'" WHERE (user_id, date) = ("'.$user_id.'", "'.$today.'")';
+    $stmt3 = $dbh->prepare($sql3);
+    $stmt3->execute();
+    $trackfarm_kintai_rec3 = $stmt2->fetch(PDO::FETCH_ASSOC);
+    header("Location: modify_af/modify_af.php");
+  }
+
   ?>
   <div class="name"><strong><?php echo $trackfarm_kintai_rec2["name"] ?></strong>さん</div>
 
@@ -129,7 +143,39 @@
       </div>
       <?php } ?>
     </div>
+
+    <div class="wrap flex-comment">
+      <?php if (isset($trackfarm_kintai_rec['comment']) == true) { ?>
+      <div class="index">　コメント　</div>
+      <form action="./modify_be.php" method="get" onSubmit="return checkSubmit()" class="comment">
+        <input type="text" size="50" name="comment" value="<?php echo $trackfarm_kintai_rec['comment']; ?>" class="content">
+        <input type="hidden" name="value" value="1">
+        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+        <input type="hidden" name="date" value="<?php echo $today; ?>">
+        <input type="submit" value="修正" class="comment_button">
+      </form>
+      <?php } else { ?>
+      <div class="index">　コメント　</div>
+      <form action="./modify_be.php" method="get" onSubmit="return checkSubmit()" class="comment">
+        <input type="text" size="50" name="comment" value="" class="content">
+        <input type="hidden" name="value" value="1">
+        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+        <input type="hidden" name="date" value="<?php echo $today; ?>">
+        <input type="submit" value="追加" class="comment_button">
+      </form>
+      <?php } ?>
+    </div>
   </div>
+
+  <script>
+  function checkSubmit() {
+    if(window.confirm('変更しますか？')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  </script>
 
 </body>
 </html>
